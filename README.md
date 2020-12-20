@@ -6,7 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+MỌI NGƯỜI CLONE VỀ XONG GÕ COMMAND NÀY TRƯỚC KHI CHẠY 
+### Cài NodeJS, React
+### `1.npm install`
+### `2.npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
