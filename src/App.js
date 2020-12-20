@@ -8,7 +8,7 @@ import SubmitCode from "./components/submitcode.component";
 import ProblemSets from "./components/problem-sets.component";
 import Profile from "./components/profile.component";
 import ViewSubmission from "./components/viewsubmission.component";
-
+import ViewProblem from "./components/viewproblem.component";
 
 function Footer() {
   return (
@@ -33,11 +33,11 @@ function App() {
         <Navbar />
         <br/>
         <Route path="/" exact component={MainPage} />
-        <Route path="/problemsets" component={ProblemSets} />
+        <Route exact path="/problemsets" component={ProblemSets} />
         <Route path="/submitcode" component={SubmitCode} />
         <Route path="/profile" component={Profile} />
         <Route path="/viewsubmission" component={ViewSubmission} />
-
+        <Route path="/problemsets/viewproblem" component={ViewProblem} />
         <Footer />
       </div>
 
