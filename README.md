@@ -21,8 +21,8 @@ You will also see any lint errors in the console.
 Mỗi người vô folder src/component. sau đó tìm file tương ứng với phần mình làm rồi sửa trong đó nha
 - [ ] Bảo: profile + login + logout
 - [ ] Cường : View Problem 
-- [ ] Đức: Problem - Hiển thị bài toán (tên bài giới hạn input-output,...)
-- [ ] Phúc: View Submission
+- [x] Đức: Problem - Hiển thị bài toán (tên bài giới hạn input-output,...)
+- [x] Phúc: View Submission
 - [ ] Khiêm: Submission
 
 DEADLINE: 21/12/2020.
