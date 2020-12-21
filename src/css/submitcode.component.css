@@ -1,0 +1,36 @@
+.SubmitCode {
+    padding-left: 100px;
+}
+
+.SubmitCode .Problem {
+    display: flex;
+    padding-left: 28px;
+}
+
+.SubmitCode .Problem input {
+    margin: 0 0 0 10px;
+    width: 150px;
+    height: 30px;
+}
+
+.SubmitCode .Language {
+    display: flex;
+    padding-left: 18px;
+}
+
+.SubmitCode .Language select {
+    margin: 0 0 0 10px;
+    width: 100px;
+    height: 30px;
+}
+
+.SubmitCode .Code {
+    display: flex;
+}
+
+.SubmitCode .Code .Editor {
+    margin: 0 0 0 10px;
+    width: 50%;
+    height: 400px;
+    
+}

@@ -6,7 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+MỌI NGƯỜI CLONE VỀ XONG GÕ COMMAND NÀY TRƯỚC KHI CHẠY 
+### Cài NodeJS, React
+### `1.npm install`
+### `2.npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -18,8 +21,8 @@ You will also see any lint errors in the console.
 Mỗi người vô folder src/component. sau đó tìm file tương ứng với phần mình làm rồi sửa trong đó nha
 - [ ] Bảo: profile + login + logout
 - [ ] Cường : View Problem 
-- [ ] Đức: Problem - Hiển thị bài toán (tên bài giới hạn input-output,...)
-- [ ] Phúc: View Submission
+- [x] Đức: Problem - Hiển thị bài toán (tên bài giới hạn input-output,...)
+- [x] Phúc: View Submission
 - [ ] Khiêm: Submission
 
 DEADLINE: 21/12/2020.
