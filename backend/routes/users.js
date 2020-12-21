@@ -7,11 +7,28 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
+router.route('/login').post((req, res) => {
+ 
+  const username = req.body.username;
+  const password = req.body.password
+
+  console.log(username, password)
+
+  res.json('User added!')
+  newUser.save()
+    .then(() => res.json('User added!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/add').post((req, res) => {
   const username = req.body.username;
+  const password = req.body.password
 
-  const newUser = new User({username});
+  console.log(username, password)
+  res.json('User added!')
 
+  const newUser = new User({username, password});
   newUser.save()
     .then(() => res.json('User added!'))
     .catch(err => res.status(400).json('Error: ' + err));
