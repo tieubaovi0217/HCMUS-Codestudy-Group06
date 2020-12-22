@@ -5,7 +5,7 @@ export default class Editor extends Component    {
     constructor(props) {
         super(props);
         this.editorProps = {
-            mode: "cpp",
+            mode: 'cpp',
             value: "",
             autoheight: false
         };
@@ -14,7 +14,7 @@ export default class Editor extends Component    {
         return (
             <ControlledEditor
                 value = {this.editorProps.value}
-                language = {this.editorProps.mode}
+                language = {this.props.mode}
                 height = {"70vh"}
                 options={{
                     readOnly: false,

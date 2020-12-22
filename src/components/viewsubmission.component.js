@@ -29,19 +29,19 @@ export default class ViewSubmission extends Component    {
         return this.state.submissions.map((submission, index) => {
            const { id, when,problem,lang,verdict,time,memory } = submission //destructuring
            const renderAuthButton = ()=>{
-                if(verdict=='Accepted')
+                if(verdict==='Accepted')
                 {
                     return  <td class="p-3 mb-2 bg-success text-white"> {verdict}</td>
                 } 
-                else if (verdict =='In queue' || verdict == 'Running')
+                else if (verdict ==='In queue' || verdict === 'Running')
                 {
                     return  <td class="p-3 mb-2 bg-secondary text-white"> {verdict}</td>
                 }
-                else if (verdict=='Compile error' || verdict=='Runtime error')
+                else if (verdict==='Compile error' || verdict==='Runtime error')
                 {
                     return  <td class="p-3 mb-2 bg-warning text-white"> {verdict}</td>
                 }
-                else if (verdict == 'Wrong answer')
+                else if (verdict === 'Wrong answer')
                 {
                     return  <td class="p-3 mb-2 bg-danger text-white"> {verdict}</td>
                 }
