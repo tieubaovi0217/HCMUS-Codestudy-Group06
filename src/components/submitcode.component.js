@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import Editor from './viewproblem.editor.component'
 import '../css/submitcode.component.css'
+import {Button} from "@material-ui/core";
+import {withRouter} from 'react-router-dom';
+const axios = require('axios')
 
 export default class SubmitCode extends Component  {
     constructor(props)
     {
         super(props);
         this.state = {
-            language : 'cpp'
-        }
+            language : 'cpp',
+            source: '',
+            problemID: '',
 
+        }
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -18,16 +23,51 @@ export default class SubmitCode extends Component  {
             {language: event.target.value}
         );
     }
+    
+    submit = async (e) => {
+        e.preventDefault();
+        console.log("clicked\n");
+        console.log(this.state.problemID);
+        console.log(this.state.language);
+        console.log(this.state.source);
+        let ourSubmission = {
+            submission_id: "S0010",
+            user_id: "doanphuduc",
+            problem_id: this.state.problemID,
+            time_submitted: new Date(),
+            language: "C++",
+            verdict: "Running",
+            time: "1",
+            memory: "2048"
+        }
+        axios.post('http://localhost:5000/submission/add', 
+                    ourSubmission)
+                    .then(response => {
+                        console.log(response);
+                    })  
+                    .catch(error => {
+                        console.log(error);
+                    });
+    }
+
+    changeSource = (value) => {
+        this.setState ({
+            source: value
+        });
+
+    }
 
     render() {
-        const {language} = this.state;
         return (
             // Your code goes here, must included in a <div>
             <div className="SubmitCode">
 
                 <div className='Problem'>
                     <p>Problem:</p>
-                    <input name='problemName' type='text'/>
+                    <input name='problemName' type='text' onChange = {(e) => {
+                        e.preventDefault();
+                        this.setState({problemID: e.target.value});
+                    }}/>
                 </div>
 
                 <div className='Language'>
@@ -42,11 +82,16 @@ export default class SubmitCode extends Component  {
                 <div className='Code'>
                     <p>Source code:</p>
                     <div className='Editor'>
-                        <Editor mode={language}/>    
+                        <Editor 
+                            mode={this.state.language} 
+                            value={this.state.source} 
+                            onChange={this.changeSource}/>    
                     </div>
                 </div>
                 <br/>
-                <input class='submit' type='submit' value='Submit'/>
+                <Button color="primary" type="submit" onClick={this.submit}>
+                        Submit
+                </Button>
             </div>
         );
     }

@@ -4,18 +4,16 @@ import { ControlledEditor } from "@monaco-editor/react";
 export default class Editor extends Component    {
     constructor(props) {
         super(props);
-        this.editorProps = {
-            mode: 'cpp',
-            value: "",
-            autoheight: false
-        };
     }
     render() {
         return (
             <ControlledEditor
-                value = {this.editorProps.value}
+                value = {this.props.value}
                 language = {this.props.mode}
                 height = {"70vh"}
+                onChange = {(event, value) => {
+                    if (value !== undefined && this.props.onChange) this.props.onChange(value);
+                }}
                 options={{
                     readOnly: false,
                     scrollBeyondLastColumn: 0,
