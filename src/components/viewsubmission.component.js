@@ -9,7 +9,7 @@ export default class ViewSubmission extends Component    {
 
     // get data from server
     componentDidMount() {
-        axios.get('http://localhost:5000/viewsubmission/')
+        axios.get('http://localhost:3000/viewsubmission/')
           .then(response => {
             this.setState({ submissions: response.data });
              console.log(this.state.submissions);
