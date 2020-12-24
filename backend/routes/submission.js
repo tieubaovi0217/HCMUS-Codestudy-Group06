@@ -13,14 +13,15 @@ router.route('/add').post((req, res) => {
     const submission_id =  req.body.submission_id;
     const user_id = req.body.user_id;
     const problem_id = req.body.problem_id;
-    //const time_submitted =  Date.parse(req.body.time_submitted);
+    //const time_submitted =  Date.parse(req.body.time_submitted); No tu lay gio hien tai roi khoi chinh
+    const code = req.body.code;
     const language = req.body.language;
     const verdict = req.body.verdict;
     const time = Number(req.body.time);
     const memory  = Number(req.body.memory);
 
     const newSubmission =  new Submission({
-        submission_id,user_id,problem_id,language,verdict,time,memory
+        submission_id,user_id,problem_id,language,verdict,time,memory,code
     });
 
     newSubmission.save()

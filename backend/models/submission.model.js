@@ -49,6 +49,10 @@ const submissionSchema = new Schema({
     memory:
     {
         type: Number,
+    },
+    code:
+    {
+        type: String
     }
 }
 );
