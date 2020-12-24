@@ -38,7 +38,8 @@ export default class SubmitCode extends Component  {
             language: "C++",
             verdict: "Running",
             time: "1",
-            memory: "2048"
+            memory: "2048",
+            code: "abc",
         }
         axios.post('http://localhost:5000/submission/add', 
                     ourSubmission)
