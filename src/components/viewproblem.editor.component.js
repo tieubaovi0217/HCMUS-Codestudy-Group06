@@ -10,7 +10,7 @@ export default class Editor extends Component    {
             <ControlledEditor
                 value = {this.props.value}
                 language = {this.props.mode}
-                height = {"70vh"}
+                height = {"50vh"}
                 onChange = {(event, value) => {
                     if (value !== undefined && this.props.onChange) this.props.onChange(value);
                 }}

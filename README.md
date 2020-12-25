@@ -6,12 +6,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-MỌI NGƯỜI CLONE VỀ XONG GÕ COMMAND NÀY TRƯỚC KHI CHẠY 
-### Cài NodeJS, React
-### `1.npm install`
-### `2.npm start`
+
+## Run following commands before run app in local
+### `npm install`
+### `npm install cors`
+### `npm install mongoose`
+### `npm install passport-local-mongoose`
 
 Runs the app in the development mode.\
+### `npm start`
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\

@@ -1,5 +1,11 @@
 .SubmitCode {
-    padding-left: 100px;
+    margin: auto;
+    width: 80%;
+}
+
+.SubmitCode .Title p {
+    text-align: center;
+    font-size: 20px;
 }
 
 .SubmitCode .Problem {
@@ -30,6 +36,15 @@
 
 .SubmitCode .Code .Editor {
     margin: 0 0 0 10px;
-    width: 50%;
-    height: 520px;
+    width: 70%;
+    height: fit-content;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+}
+
+.SubmitCode button {
+    margin-left: 100px;
+    background-color: lightgrey;
+
 }
