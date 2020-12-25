@@ -15,9 +15,9 @@ export default class SubmitCode extends Component  {
             problemID: '',
         }
         this.mapToLanguageName = {
-            '2': 'C++',
-            '4': 'Java',
-            '10': 'Python',
+            '2': 'cpp',
+            '4': 'java',
+            '10': 'python',
         }
         this.changeLanguage = this.changeLanguage.bind(this);
 
@@ -53,7 +53,7 @@ export default class SubmitCode extends Component  {
 
     changeLanguage(event) {
         this.setState(
-            {language: event.target.value}
+            {language_id: event.target.value}
         );
     }
 
@@ -198,7 +198,11 @@ export default class SubmitCode extends Component  {
         return (
             // Your code goes here, must included in a <div>
             <div className="SubmitCode">
-
+                <div className='Title'>
+                    <p>
+                        Submit Solution
+                    </p>
+                </div>
                 <div className='Problem'>
                     <p>Problem:</p>
                     <input name='problemName' type='text' onChange = {(e) => {
@@ -219,14 +223,15 @@ export default class SubmitCode extends Component  {
                 <div className='Code'>
                     <p>Source code:</p>
                     <div className='Editor'>
+
                         <Editor 
-                            mode={this.state.language} 
+                            mode={this.mapToLanguageName[this.state.language_id]} 
                             value={this.state.source} 
                             onChange={this.changeSource}/>    
                     </div>
                 </div>
                 <br/>
-                <Button color="primary" type="submit" onClick={this.submit}>
+                <Button type="submit" onClick={this.submit}>
                         Submit
                 </Button>
             </div>
