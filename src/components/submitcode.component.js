@@ -14,10 +14,10 @@ export default class SubmitCode extends Component  {
             source: '',
             problemID: '',
         }
-        this.mapToLanguageName = {
-            '2': 'cpp',
-            '4': 'java',
-            '10': 'python',
+        this.idx2LanguageName = {
+            '2': 'C++',
+            '4': 'Java',
+            '10': 'Python',
         }
         this.changeLanguage = this.changeLanguage.bind(this);
 
@@ -136,14 +136,14 @@ export default class SubmitCode extends Component  {
             user_id: "doanphuduc123",
             problem_id: this.state.problemID,
             language_id: this.state.language_id,
-            language: this.mapToLanguageName[this.state.language_id],
+            language: this.idx2LanguageName[this.state.language_id],
             verdict: "Running",
             time: "1",
             memory: "2048",
             code: this.state.source,
         }
         // get last submission id + 1 for our submission
-        await axios.post('http://localhost:3000/viewsubmission/last-submission-id')
+        await axios.post('http://localhost:5000/viewsubmission/last-submission-id')
                     .then(response => {
                         console.log((parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0'));
                         ourSubmission.submission_id = (parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0');
@@ -151,8 +151,8 @@ export default class SubmitCode extends Component  {
                     .catch(error => {
                         console.log(error);
                     });
-
-        axios.post('http://localhost:3000/viewsubmission/add', ourSubmission)
+        console.log(ourSubmission);
+        axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
                     .then(response => {
                         console.log(response);
                     })  
@@ -178,7 +178,7 @@ export default class SubmitCode extends Component  {
         let newSubmission = ourSubmission;
         newSubmission.verdict = finalResult;
 
-        axios.post('http://localhost:3000/viewsubmission/modify', newSubmission)
+        axios.post('http://localhost:5000/viewsubmission/modify', newSubmission)
                     .then(response => {
                         console.log(response);
                     })
@@ -225,7 +225,7 @@ export default class SubmitCode extends Component  {
                     <div className='Editor'>
 
                         <Editor 
-                            mode={this.mapToLanguageName[this.state.language_id]} 
+                            mode={this.idx2LanguageName[this.state.language_id]} 
                             value={this.state.source} 
                             onChange={this.changeSource}/>    
                     </div>
