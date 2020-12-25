@@ -10,13 +10,13 @@ import axios from "axios";
 const Problem = (props) => (
   <tr>
     <td className="id">
-      <Link to={"/problemset/problem/" + props.problem.problem_id}>
+      <Link to={"/problemset/viewproblem/" + props.problem.problem_id}>
         {props.problem.problem_id}
       </Link>
     </td>
     <td>
       <div style={{ float: "left" }}>
-        <Link to={"/problemset/problem/" + props.problem.problem_id}>
+        <Link to={"/problemset/viewproblem/" + props.problem.problem_id}>
           {props.problem.problem_name}
         </Link>
       </div>
@@ -40,8 +40,7 @@ export default class ProblemSets extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/problemset/")
+    axios.get("http://localhost:5000/problemset/")
       .then((response) => {
         this.setState({ problems: response.data });
         console.log(this.state.problems);
@@ -54,7 +53,7 @@ export default class ProblemSets extends Component {
   problemList() {
     return this.state.problems.map((currentproblem) => {
       return <Problem problem={currentproblem} key={currentproblem._id} />;
-    });
+    }); 
   }
 
   render() {

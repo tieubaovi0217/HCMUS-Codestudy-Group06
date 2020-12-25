@@ -18,7 +18,7 @@ export default class Navbar extends Component {
 	
 			<nav className="nav nav-pills nav-justified bg-light ">
 				<NavLink exact to="/" className="nav-link">Main Page</NavLink>
-				<NavLink exact to="/problemsets" className="nav-link">Problem Sets</NavLink>
+				<NavLink exact to="/problemset" className="nav-link">Problem Sets</NavLink>
 				<NavLink exact to="/submitcode" className="nav-link" >Submit Code</NavLink>
 				<NavLink exact to="/profile" className="nav-link">Profile</NavLink>
 				<NavLink exact to="/viewsubmission" className="nav-link">View Submission</NavLink>

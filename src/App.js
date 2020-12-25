@@ -30,9 +30,11 @@ function App() {
         <Switch>
           <Route exact path="/" exact component={MainPage} />
      
-          <Route exact path="/problemsets" component={ProblemSets} />
+          <Route exact path="/problemset" component={ProblemSets} />
        
-          <Route exact path="/problemsets/viewproblem" component={ViewProblem} />
+          <Route exact path="/problemset/viewproblem" component={ViewProblem} />
+
+          <Route exact path="/problemset/viewproblem/:id" render={(props) => {return <ViewProblem {...props}/>}} />
        
           <Route exact path="/submitcode" component={SubmitCode} />
      

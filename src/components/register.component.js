@@ -19,7 +19,7 @@ export default class Register extends Component {
   onSubmitSignUp = () => {
     let { username, password } = this.state;
     axios
-      .post("http://localhost:3000/users/register", {
+      .post("http://localhost:5000/users/register", {
         username,
         password,
       })

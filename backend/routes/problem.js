@@ -8,6 +8,12 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/viewproblem/:id").get((req, res) => {
+  Problem.find({"problem_id": req.params.id})
+  .then((problem) => res.json(problem))
+  .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/add").post((req, res) => {
   const problem_id = req.body.problem_id;
   const problem_name = req.body.problem_name;
