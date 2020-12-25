@@ -56,7 +56,6 @@ export default class ViewProblem extends Component {
   }
 
   componentDidMount = () => {
-
     let data = null;
     let { id } = this.state; //id = this.state.id
     axios
@@ -94,19 +93,25 @@ export default class ViewProblem extends Component {
         this.setState({ sampleProblem: newSampleProblem });
 
         this.setState({
-            data: [
-              { name: "Description", content: this.state.sampleProblem.description },
-              { name: "Input Format", content: this.state.sampleProblem.inputFormat },
-              {
-                name: "Output Format",
-                content: this.state.sampleProblem.outputFormat,
-              },
-            ],
-            dataWithTable: [
-              { name: "Input", content: this.state.sampleProblem.inputSample },
-              { name: "Output", content: this.state.sampleProblem.outputSample },
-            ],
-          });
+          data: [
+            {
+              name: "Description",
+              content: this.state.sampleProblem.description,
+            },
+            {
+              name: "Input Format",
+              content: this.state.sampleProblem.inputFormat,
+            },
+            {
+              name: "Output Format",
+              content: this.state.sampleProblem.outputFormat,
+            },
+          ],
+          dataWithTable: [
+            { name: "Input", content: this.state.sampleProblem.inputSample },
+            { name: "Output", content: this.state.sampleProblem.outputSample },
+          ],
+        });
       })
       .catch(function (error) {
         // handle error
@@ -133,7 +138,11 @@ export default class ViewProblem extends Component {
             <Typography variant="h6" paragraph={true}>
               {problemInfo.name}
             </Typography>
-            <Typography variant="body3" paragraph={true}>
+            <Typography
+              variant="body3"
+              paragraph={true}
+              style={{ whiteSpace: "pre-line" }}
+            >
               {problemInfo.content}
             </Typography>
           </div>
@@ -147,7 +156,7 @@ export default class ViewProblem extends Component {
               <tr>
                 <td> {problemInfoWithTable.name} </td>
               </tr>
-              <tr>
+              <tr style={{ whiteSpace: "pre-line" }}>
                 <td> {problemInfoWithTable.content} </td>
               </tr>
             </table>
@@ -156,9 +165,9 @@ export default class ViewProblem extends Component {
         ))}
 
         <Divider className={this.classes.divider} />
-          <Button color="primary" type="submit">
-            Submit
-          </Button>
+        <Button color="primary" type="submit">
+          Submit
+        </Button>
       </Box>
     );
   }
