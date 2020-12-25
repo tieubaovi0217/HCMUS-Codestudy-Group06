@@ -34,31 +34,31 @@ export default class Login extends Component    {
 
     render() {
         return (
-            <div class="container mt-5">
-                <div class="row">
-                <div class="col"></div>
-                <div class="col-sm-7 col-md-6 col-lg-5">
-                    <div class="card shadow border-0">
-                    <div class="card-body">
-                        <h1 class="text-center">Login</h1>
+            <div className="container mt-5">
+                <div className="row">
+                <div className="col"></div>
+                <div className="col-sm-7 col-md-6 col-lg-5">
+                    <div className="card shadow border-0">
+                    <div className="card-body">
+                        <h1 className="text-center">Login</h1>
                         <div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="">Username</label>
-                            <input onChange={this.onUsernameChange} type="text" name="username" class="form-control" id="exampleInputUsername" placeholder="Username" required/>
-                            <div class="invalid-feedback">
+                            <input onChange={this.onUsernameChange} type="text" name="username" className="form-control" id="exampleInputUsername" placeholder="Username" required/>
+                            <div className="invalid-feedback">
                             Please enter your username.
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="">Password</label>
-                            <input onChange={this.onPasswordChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required/>
-                            <div class="invalid-feedback">
+                            <input onChange={this.onPasswordChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required/>
+                            <div className="invalid-feedback">
                             Please enter your password.
                             </div>
                         </div>
-                        <button onClick={this.onSubmitSignIn} type="submit" class="btn btn-danger btn-block">Login</button>
+                        <button onClick={this.onSubmitSignIn} type="submit" className="btn btn-danger btn-block">Login</button>
                         </div>
-                        <div class="mt-2 text-center">
+                        <div className="mt-2 text-center">
                         Don't have an account?
                         <a href="/register"> Sign Up</a>
                         </div>
@@ -66,7 +66,7 @@ export default class Login extends Component    {
                     </div>
 
                 </div>
-                <div class="col"> </div>
+                <div className="col"> </div>
                 </div>
             </div>
         );

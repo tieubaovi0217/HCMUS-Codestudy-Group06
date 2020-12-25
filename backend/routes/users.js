@@ -9,19 +9,20 @@ router.route('/').get((req, res) => {
 
 
 router.route('/login').post((req, res) => {
- 
-  const username = req.body.username;
-  const password = req.body.password
+  // not yet handle
+  
+  // const username = req.body.username;
+  // const password = req.body.password
 
-  console.log(username, password)
+  // console.log(username, password)
 
-  res.json('User added!')
-  newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+  // res.json('User added!')
+  // newUser.save()
+  //   .then(() => res.json('User added!'))
+  //   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/register').post((req, res) => {
   const username = req.body.username;
   const password = req.body.password
 

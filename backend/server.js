@@ -27,10 +27,18 @@ const submissionRouter = require('./routes/submission')
 //const problemRouter = require('./routes/problem')
 
 
-app.use('/', MainPage);
+//app.use('/', MainPage);
 app.use('/users', usersRouter);
 app.use('/viewsubmission',submissionRouter);
 //app.use('/problemsets',problemRouter);
+
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+      message: err.message,
+      error: err
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
