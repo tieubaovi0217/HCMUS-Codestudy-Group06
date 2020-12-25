@@ -10,27 +10,24 @@ import axios from "axios";
 const Problem = (props) => (
   <tr>
     <td className="id">
-      <Link to={"/problemset/problem/" + props.problem.id}>
-        {props.problem.id}
+      <Link to={"/problemset/problem/" + props.problem.problem_id}>
+        {props.problem.problem_id}
       </Link>
     </td>
     <td>
       <div style={{ float: "left" }}>
-        <Link to={"/problemset/problem/" + props.problem.id}>
-          {props.problem.name}
+        <Link to={"/problemset/problem/" + props.problem.problem_id}>
+          {props.problem.problem_name}
         </Link>
       </div>
     </td>
     <td>
-      <span title="Difficulty">{props.problem.difficulty}</span>
+      <span title="Difficulty">{props.problem.problem_difficulty}</span>
     </td>
     <td>
-      <a
-        title="Participants solved the problem"
-        href="/problemset/status/1462/problem/F"
-      >
+      <span title="Participants solved the problem">
         {props.problem.num_solved}
-      </a>
+      </span>
     </td>
   </tr>
 );
@@ -44,9 +41,10 @@ export default class ProblemSets extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/problemset/")
+      .get("http://localhost:5000/problemset/")
       .then((response) => {
         this.setState({ problems: response.data });
+        console.log(this.state.problems);
       })
       .catch((error) => {
         console.log(error);
@@ -196,51 +194,7 @@ export default class ProblemSets extends Component {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {/*this.problemList()*/}
-              <tr>
-                <td className="id">
-                  <a href="/problemset/problem/1463/F">1463F</a>
-                </td>
-                <td>
-                  <div style={{ float: "left" }}>
-                    <a href="/problemset/problem/1463/F">Max Correct Set</a>
-                  </div>
-                </td>
-                <td>
-                  <span title="Difficulty">1800</span>
-                </td>
-                <td>
-                  <a
-                    title="Participants solved the problem"
-                    href="/problemset/status/1462/problem/F"
-                  >
-                    x2842
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td className="id">
-                  <a href="/problemset/problem/1463/F">1463F</a>
-                </td>
-                <td>
-                  <div style={{ float: "left" }}>
-                    <a href="/problemset/problem/1463/F">Max Correct Set</a>
-                  </div>
-                </td>
-                <td>
-                  <span title="Difficulty">1800</span>
-                </td>
-                <td>
-                  <a
-                    title="Participants solved the problem"
-                    href="/problemset/status/1462/problem/F"
-                  >
-                    x2842
-                  </a>
-                </td>
-              </tr>
-            </tbody>
+            <tbody>{this.problemList()}</tbody>
           </table>
         </div>
       </div>
