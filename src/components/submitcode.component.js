@@ -159,6 +159,7 @@ export default class SubmitCode extends Component  {
                     .catch(error => {
                         console.log(error);
                     });
+        this.props.history.push('viewsubmission');
 
         // create a list of submission info {source, stdin, language_id} test to submit
         const submissions = this.getSubmissions(ourSubmission);

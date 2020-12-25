@@ -84,10 +84,10 @@ export default class ViewProblem extends Component {
         let newSampleProblem = {
           description: description,
           inputFormat: input_format,
-          inputSample: inputs,
+          inputSample: inputs[0],
           memLimit: mem_limit,
           outputFormat: output_format,
-          outputSample: outputs,
+          outputSample: outputs[0],
           title: problem_name,
           timeLimit: time_limit,
         };
@@ -155,24 +155,10 @@ export default class ViewProblem extends Component {
           </div>
         ))}
 
-        <Typography variant="h6" paragraph={true}>
-          Submit Code
-        </Typography>
         <Divider className={this.classes.divider} />
-        <form>
-          <Editor />
-          <Select displayEmpty required value={"cpp"}>
-            <MenuItem value=""> Lang </MenuItem>{" "}
-            {this.state.languages.map((language) => (
-              <MenuItem key={language} value={language}>
-                {language}
-              </MenuItem>
-            ))}
-          </Select>
           <Button color="primary" type="submit">
             Submit
           </Button>
-        </form>
       </Box>
     );
   }
