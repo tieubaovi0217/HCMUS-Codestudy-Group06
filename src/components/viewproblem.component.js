@@ -17,7 +17,7 @@ import {
   TableRow,
   TableCell,
 } from "@material-ui/core";
-
+import { Link, Redirect } from "react-router-dom";
 import Editor from "./viewproblem.editor.component.js";
 
 export default class ViewProblem extends Component {
@@ -52,6 +52,7 @@ export default class ViewProblem extends Component {
       dataWithTable: [],
       languages: ["cpp", "java", "python", "pascal"],
       test: "test",
+      redirect: "",
     };
   }
 
@@ -119,8 +120,17 @@ export default class ViewProblem extends Component {
       });
   };
 
+  onClickSubmit = () => {
+    this.setState({ redirect: "/submitcode" });
+  };
+
   render() {
-    console.log(this.state.id);
+    if (this.state.redirect)
+      return (
+        <Redirect
+          to={{ pathname: this.state.redirect, state: { id: this.state.id } }}
+        />
+      );
     return (
       <Box>
         <Typography variant="h4" align="center" paragraph={true}>
@@ -165,7 +175,7 @@ export default class ViewProblem extends Component {
         ))}
 
         <Divider className={this.classes.divider} />
-        <Button color="primary" type="submit">
+        <Button color="primary" type="submit" onClick={this.onClickSubmit}>
           Submit
         </Button>
       </Box>

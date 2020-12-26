@@ -51,6 +51,13 @@ export default class SubmitCode extends Component  {
         this.MAIN_HOST2 = this.HOST2[0];
     }
 
+    componentDidMount = () => {
+        if(this.props.location.state){
+            let id = this.props.location.state.id
+            this.setState({problemID: id})
+        }
+    }
+
     changeLanguage(event) {
         this.setState(
             {language_id: event.target.value}
@@ -126,6 +133,7 @@ export default class SubmitCode extends Component  {
 
     
     submit = async (e) => {
+        
         e.preventDefault();
         console.log("clicked\n");
         console.log(this.state.problemID);
@@ -195,7 +203,12 @@ export default class SubmitCode extends Component  {
 
     }
 
+    onInputChange = (e) => {
+        e.preventDefault();
+        this.setState({problemID: e.target.value});
+    }
     render() {
+        console.log(this.state.problemID)
         return (
             // Your code goes here, must included in a <div>
             <div className="SubmitCode">
@@ -206,10 +219,7 @@ export default class SubmitCode extends Component  {
                 </div>
                 <div className='Problem'>
                     <p>Problem:</p>
-                    <input name='problemName' type='text' onChange = {(e) => {
-                        e.preventDefault();
-                        this.setState({problemID: e.target.value});
-                    }}/>
+                    <input name='problemName' type='text' onChange = {this.onInputChange} value={this.state.problemID}/>
                 </div>
 
                 <div className='Language'>
