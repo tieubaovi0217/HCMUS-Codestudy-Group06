@@ -3,7 +3,7 @@ import Editor from './viewproblem.editor.component'
 import '../css/submitcode.component.css'
 import {Button} from "@material-ui/core";
 import {withRouter} from 'react-router-dom';
-const axios = require('axios')
+import axios from "axios";
 
 export default class SubmitCode extends Component  {
     constructor(props)
@@ -13,6 +13,8 @@ export default class SubmitCode extends Component  {
             language_id : '2',
             source: '',
             problemID: '',
+            inputs: null,
+            outputs: null,
         }
         this.idx2LanguageName = {
             '2': 'C++',
@@ -51,10 +53,34 @@ export default class SubmitCode extends Component  {
         this.MAIN_HOST2 = this.HOST2[0];
     }
 
-    componentDidMount = () => {
+    componentDidMount = async() => {
         if(this.props.location.state){
             let id = this.props.location.state.id
             this.setState({problemID: id})
+            let data = null;
+            await axios
+                .get(`http://localhost:5000/problemset/viewproblem/${id}`)
+                .then((response) => {
+                    data = response.data[0];
+                    let {
+                        description,
+                        input_format,
+                        inputs,
+                        mem_limit,
+                        num_solved,
+                        output_format,
+                        outputs,
+                        problem_difficulty,
+                        problem_id,
+                        problem_name,
+                        time_created,
+                        time_limit,
+                    } = data;
+                    this.setState({inputs: inputs, outputs: outputs});
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }
 
@@ -111,24 +137,18 @@ export default class SubmitCode extends Component  {
     }
 
     getSubmissions = currentSubmission => {
-        return [
-            {
+        let data = null;
+        let id = this.state.problemID;
+        // we got data here
+        return this.state.inputs.map((input, index) => {
+            return {
                 source_code: btoa(currentSubmission.code),
-                stdin: btoa("1 0"),
+                stdin: btoa(input),
                 language_id: currentSubmission.language_id,
-                expected_output: btoa("1"),
-                stack_limit: "256",
+                expected_output: btoa(this.state.outputs[index]),
                 memory_limit: "2048"  
-            },
-            {
-                source_code: btoa(currentSubmission.code),
-                stdin: btoa("0 1"),
-                language_id: currentSubmission.language_id,
-                expected_output: btoa("1"),
-                stack_limit: "256",
-                memory_limit: "2048"
             }
-        ];
+        });
     }
 
     
@@ -146,8 +166,8 @@ export default class SubmitCode extends Component  {
             language_id: this.state.language_id,
             language: this.idx2LanguageName[this.state.language_id],
             verdict: "Running",
-            time: "1",
-            memory: "2048",
+            time: "0",
+            memory: "0",
             code: this.state.source,
         }
         // get last submission id + 1 for our submission
@@ -171,21 +191,28 @@ export default class SubmitCode extends Component  {
 
         // create a list of submission info {source, stdin, language_id} test to submit
         const submissions = this.getSubmissions(ourSubmission);
+
         const submissionPromises = submissions.map(this.submitOneTest);
         // // judge all tests
         const ourResults = await Promise.all(submissionPromises);
         // console.log(typeof ourResults);
-        let finalResult = "Accepted"
+        let finalResult = "Accepted";
+        // let finalTime = -1;
+        // let finalMem = -1;
         for (const result of ourResults) {
             if (result.status.description !== "Accepted") {
                 console.log(result);
                 finalResult = result.status.description;
                 break;
             }
+            // if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
+            // if (result.memory > finalMem) finalMem = result.memory;
         }
 
         let newSubmission = ourSubmission;
         newSubmission.verdict = finalResult;
+        // newSubmission.time = (finalTime * 1000).toString();
+        // newSubmission.memory = finalMem.toString();
 
         axios.post('http://localhost:5000/viewsubmission/modify', newSubmission)
                     .then(response => {
@@ -208,7 +235,6 @@ export default class SubmitCode extends Component  {
         this.setState({problemID: e.target.value});
     }
     render() {
-        console.log(this.state.problemID)
         return (
             // Your code goes here, must included in a <div>
             <div className="SubmitCode">
