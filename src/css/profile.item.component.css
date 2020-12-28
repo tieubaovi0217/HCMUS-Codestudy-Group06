@@ -1,0 +1,15 @@
+.ProfileItem {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.ProfileItem .ItemTitle{
+    padding-top: 4px;
+    font-size: 17px;
+    font-weight: 500px;
+}
+
+.ProfileItem .ItemContent{
+    margin: 0 0 0 10px;
+    font-size: 20px;
+}

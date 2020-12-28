@@ -1,0 +1,63 @@
+.Profile {
+    width: 75%;
+    margin: auto;
+}
+
+.Profile .NavigateButton {
+    margin: auto;
+}
+
+.Profile .NavigateButton Button {
+    font-size: 13px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 550;
+}
+
+.Profile .ProfileInfor {
+    display: flex;
+}
+
+.Profile .ProfileInfor .ProfileInformation {
+    width: 100%;
+    margin: 15px 15px 15px 15px;
+}
+
+.Profile .ProfileInfor .ProfileInformation .Title {
+    margin: 0 0 0 0;
+    font-size: 18px;
+}
+
+.Profile .ProfileInfor .ProfileInformation .Username {
+    margin: 0 0 0 0;
+    font-size: 25px;
+}
+
+.Profile .ProfileInfor .ProfilePicture {
+    padding: 10px;
+    border: lightgray;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    width: 270px;
+    margin: 15px 15px 15px 15px;
+}
+
+.Profile .ProfileInfor .ProfilePicture img {
+    width: 250px;
+    height: 250px;
+}
+
+.Profile .ProfileInfor .ProfilePicture p {
+    margin-bottom: 5px;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color:royalblue;
+}
+
+.Profile .ProfileInfor {
+    border-style: solid;
+    border-width: 2px;
+    border-color: lightgray;
+    border-radius: 25px;
+}
