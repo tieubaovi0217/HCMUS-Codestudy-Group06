@@ -9,9 +9,6 @@ In the project directory, you can run:
 
 ## Run following commands before run app in local
 ### `npm install`
-### `npm install cors`
-### `npm install mongoose`
-### `npm install passport-local-mongoose`
 
 Runs the app in the development mode.\
 ### `npm start`
