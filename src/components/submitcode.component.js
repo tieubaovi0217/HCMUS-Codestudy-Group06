@@ -35,19 +35,19 @@ export default class SubmitCode extends Component  {
             "da79fa596fmsh54d45dfa57a6e1dp17f924jsn004375a52168",
             "f4d88088c4msh634ccaf0e2666a4p1fbd0bjsnbef0402a5eac"
         ]
-        this.NUMBER_OF_API_KEY = this.API_KEY.length
+        this.NUMBER_OF_API_KEY = this.API_KEY.length;
         this.HOST0 = [
             "judge0-extra-ce.p.rapidapi.com",
             "judge0-ce.p.rapidapi.com"
-        ]
+        ];
         this.HOST1 = [
             "https://judge0-extra-ce.p.rapidapi.com/submissions",
             "https://judge0-ce.p.rapidapi.com/submissions"
-        ]
+        ];
         this.HOST2 = [
             "?base64_encoded=true&wait=false&fields=*",
             "?base64_encoded=true&fields=*"
-        ]
+        ];
         this.MAIN_HOST0 = this.HOST0[0];
         this.MAIN_HOST1 = this.HOST1[0];
         this.MAIN_HOST2 = this.HOST2[0];
@@ -55,32 +55,8 @@ export default class SubmitCode extends Component  {
 
     componentDidMount = async() => {
         if(this.props.location.state){
-            let id = this.props.location.state.id
-            this.setState({problemID: id})
-            let data = null;
-            await axios
-                .get(`http://localhost:5000/problemset/viewproblem/${id}`)
-                .then((response) => {
-                    data = response.data[0];
-                    let {
-                        description,
-                        input_format,
-                        inputs,
-                        mem_limit,
-                        num_solved,
-                        output_format,
-                        outputs,
-                        problem_difficulty,
-                        problem_id,
-                        problem_name,
-                        time_created,
-                        time_limit,
-                    } = data;
-                    this.setState({inputs: inputs, outputs: outputs});
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            let id = this.props.location.state.id;
+            this.setState({problemID: id});
         }
     }
 
@@ -151,14 +127,40 @@ export default class SubmitCode extends Component  {
         });
     }
 
+    loadTestcases = async(problemID) => {
+        let data = null;
+        let id = problemID;
+        const response = await axios
+            .get(`http://localhost:5000/problemset/viewproblem/${id}`)
+            .then((response) => {
+                data = response.data[0];
+                let {
+                    description,
+                    input_format,
+                    inputs,
+                    mem_limit,
+                    num_solved,
+                    output_format,
+                    outputs,
+                    problem_difficulty,
+                    problem_id,
+                    problem_name,
+                    time_created,
+                    time_limit,
+                } = data;
+                this.setState({inputs: inputs, outputs: outputs});
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        return response;
+    }
+
     
     submit = async (e) => {
         
         e.preventDefault();
-        console.log("clicked\n");
-        console.log(this.state.problemID);
-        console.log(this.state.language);
-        console.log(this.state.source);
+        await this.loadTestcases(this.state.problemID); // load testcases from database
         let ourSubmission = {
             submission_id: "",
             user_id: "doanphuduc123",
@@ -173,16 +175,16 @@ export default class SubmitCode extends Component  {
         // get last submission id + 1 for our submission
         await axios.post('http://localhost:5000/viewsubmission/last-submission-id')
                     .then(response => {
-                        console.log((parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0'));
+                        // console.log((parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0'));
                         ourSubmission.submission_id = (parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0');
                     })  
                     .catch(error => {
                         console.log(error);
                     });
-        console.log(ourSubmission);
+        console.log("ourSubmission = ", ourSubmission);
         axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                     })  
                     .catch(error => {
                         console.log(error);
@@ -191,28 +193,29 @@ export default class SubmitCode extends Component  {
 
         // create a list of submission info {source, stdin, language_id} test to submit
         const submissions = this.getSubmissions(ourSubmission);
+        console.log("submissions = ", submissions);
 
         const submissionPromises = submissions.map(this.submitOneTest);
         // // judge all tests
         const ourResults = await Promise.all(submissionPromises);
-        // console.log(typeof ourResults);
         let finalResult = "Accepted";
-        // let finalTime = -1;
-        // let finalMem = -1;
+        let finalTime = 0;
+        let finalMem = 0;
         for (const result of ourResults) {
             if (result.status.description !== "Accepted") {
-                console.log(result);
+                console.log("result = ", result);
                 finalResult = result.status.description;
                 break;
             }
-            // if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
-            // if (result.memory > finalMem) finalMem = result.memory;
+            if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
+            if (result.memory > finalMem) finalMem = result.memory;
         }
 
         let newSubmission = ourSubmission;
         newSubmission.verdict = finalResult;
-        // newSubmission.time = (finalTime * 1000).toString();
-        // newSubmission.memory = finalMem.toString();
+        newSubmission.time = (finalTime * 1000).toString();
+        newSubmission.memory = finalMem.toString();
+        console.log("newSubmission = ", newSubmission);
 
         axios.post('http://localhost:5000/viewsubmission/modify', newSubmission)
                     .then(response => {
@@ -234,6 +237,7 @@ export default class SubmitCode extends Component  {
         e.preventDefault();
         this.setState({problemID: e.target.value});
     }
+
     render() {
         return (
             // Your code goes here, must included in a <div>

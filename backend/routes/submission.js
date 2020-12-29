@@ -43,9 +43,9 @@ router.route('/modify').post((req, res) => {
   const memory  = Number(req.body.memory);
 
   const filter = {
-      submission_id,user_id,problem_id,language,time,memory,code
+      submission_id
   };
-  const update = {verdict: verdict};
+  const update = {verdict: verdict, time: time, memory: memory};
   const opts = {new: true};
 
   Submission.findOneAndUpdate(filter, update, opts)
