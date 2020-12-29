@@ -35,4 +35,10 @@ router.route('/register').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/profile').get((req, res) => {
+  User.find({"username": "doanphuduc"})
+  .then((user) => res.json(user))
+  .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

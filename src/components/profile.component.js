@@ -3,6 +3,7 @@ import ProfileItem from './profile.item.component.js';
 import pic from '../pictures/logo_transparent.png';
 import '../css/profile.component.css';
 import {Button} from "@material-ui/core";
+import axios from "axios";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -10,9 +11,27 @@ export default class Profile extends Component {
         this.state = {
             page : 0
         }
+        this.user = {}
 
         this.toProfilePage = this.toProfilePage.bind(this)
         this.toSettingPage = this.toSettingPage.bind(this)
+    }
+
+    componentDidMount() {
+        axios
+        .get('http://localhost:5000/users')
+        .then((response) => {
+            let {username, email} = response.data[0];
+            console.log(username);
+            console.log("HELLO");
+            this.setState({
+                username: username,
+                email: email
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
 
     toProfilePage() {
@@ -45,7 +64,7 @@ export default class Profile extends Component {
                             Master
                         </h1>
                         <h1 className='Username'>
-                            Hello World
+                            {this.state.username}
                         </h1>
                         <br/>
                         <ProfileItem
@@ -56,7 +75,7 @@ export default class Profile extends Component {
                         />
                         <ProfileItem
                             title='Email:'
-                            content='abc@xyz.com'
+                            content={this.state.email}
                         />
                         <ProfileItem
                             title='Last visit:'
