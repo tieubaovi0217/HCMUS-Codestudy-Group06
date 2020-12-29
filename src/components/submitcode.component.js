@@ -17,9 +17,9 @@ export default class SubmitCode extends Component  {
             outputs: null,
         }
         this.idx2LanguageName = {
-            '2': 'C++',
-            '4': 'Java',
-            '10': 'Python',
+            '2': 'cpp',
+            '4': 'java',
+            '10': 'python',
         }
         this.changeLanguage = this.changeLanguage.bind(this);
 

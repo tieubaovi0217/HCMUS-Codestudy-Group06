@@ -1,6 +1,11 @@
 import React, { Component, memo } from "react";
 import axios from "axios";
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { ControlledEditor } from "@monaco-editor/react";
+
+
 export default class ViewSubmission extends Component {
   constructor(props) {
     super(props);
@@ -54,19 +59,34 @@ export default class ViewSubmission extends Component {
       return (
         <tr key={submission.submission_id}>
           <th scope="row">
-            {" "}
-            <a class="nav-link" href="">
-              {" "}
-              {submission.submission_id}{" "}
-            </a>
+                <Popup trigger={<a class="nav-link">{submission.submission_id}</a>} modal>
+                <div>
+                <div className="header"> {"Submission #" +  submission.submission_id} </div>   
+                <br></br>
+                <ControlledEditor
+                value = {submission.code}
+                language = {submission.language}
+                height = {"50vh"}
+                options={{
+                    readOnly: true,
+                    scrollBeyondLastColumn: 0,
+                    scrollBeyondLastLine: false,
+                    minimap: {
+                      enabled: false
+                    },
+                    scrollbar: {
+                      alwaysConsumeMouseWheel: false
+                    }
+                  }}
+                />
+              </div>
+              </Popup>  
           </th>
           <td>{submission.time_submitted}</td>
           <td>
-            {" "}
-            <a class="nav-link" href="">
-              {" "}
-              {submission.problem_id}{" "}
-            </a>{" "}
+            <a class="nav-link" href={"/problemset/viewproblem/" + submission.problem_id}>
+              {submission.problem_id}
+            </a>
           </td>
           <td>{submission.language}</td>
           {renderAuthButton(submission.verdict)}

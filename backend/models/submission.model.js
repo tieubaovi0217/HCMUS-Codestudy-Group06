@@ -32,8 +32,8 @@ const submissionSchema = new Schema({
     language:
     {
         type : String,
-        enum: ['C++', 'Java','Python'],
-        default: "C++"
+        enum: ['cpp', 'java','python'],
+        default: "cpp"
     },
 
     language_id:
