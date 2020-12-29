@@ -20,6 +20,8 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import NotFoundPage from "./components/notfoundpage.component";
 import Footer from "./footer";
+import ViewOneSubmission from "./components/view-one-submission.component"
+
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
           <Route exact path="/login" component={Login} />
       
           <Route exact path="/register" component={Register} />
+
+          <Route exact path="/viewsubmission/test" component={ViewOneSubmission} />
 
           <Route component={NotFoundPage}/>
         </Switch>
