@@ -36,17 +36,17 @@ export default class ViewProblem extends Component {
     this.state = {
       id: this.props.match.params.id,
       sampleProblem: {
-        title: "Greatest Common Divisor",
-        timeLimit: "2",
-        memLimit: "512",
+        title: "",
+        timeLimit: "",
+        memLimit: "",
         description:
-          "Given two numbers a, b. You need to compute greatest common divisor of a, b",
+          "",
         inputFormat:
-          "The first line contain two number a, b respectively (1 <= a, b <= 1000000)",
+          "",
         outputFormat:
-          "One line contain single number is greatest common divisor of a, b",
-        inputSample: "8 6",
-        outputSample: "2",
+          "",
+        inputSample: "",
+        outputSample: "",
       },
       data: [],
       dataWithTable: [],
@@ -140,7 +140,7 @@ export default class ViewProblem extends Component {
           Time Limit: {this.state.sampleProblem.timeLimit} sec
         </Typography>
         <Typography variant="body2" align="center" paragraph={true}>
-          Mem Limit: {this.state.sampleProblem.memLimit} kB
+          Mem Limit: {this.state.sampleProblem.memLimit} MB
         </Typography>
 
         {this.state.data.map((problemInfo) => (
