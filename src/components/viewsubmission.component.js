@@ -14,6 +14,12 @@ export default class ViewSubmission extends Component {
 
   // get data from server
   componentDidMount() {
+    console.log("did mount");
+    this.getData();
+    this.timer = setInterval(() => this.getData(), 4000);
+  }
+  getData() {
+    console.log("get data");
     axios
       .get("http://localhost:5000/viewsubmission/")
       .then((response) => {
@@ -23,6 +29,11 @@ export default class ViewSubmission extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+  componentWillUnmount() {
+    console.log("unmount");
+    clearInterval(this.timer);
+    this.timer = null;
   }
 
   renderTableHeader() {
