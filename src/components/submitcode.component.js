@@ -10,16 +10,18 @@ export default class SubmitCode extends Component  {
     {
         super(props);
         this.state = {
-            language_id : '2',
+            language_id : '54',
             source: '',
             problemID: '',
             inputs: null,
             outputs: null,
+            time_limit: '',
+            memory_limit: ''
         }
         this.idx2LanguageName = {
-            '2': 'cpp',
-            '4': 'java',
-            '10': 'python',
+            '54': 'cpp',
+            '62': 'java',
+            '71': 'python',
         }
         this.changeLanguage = this.changeLanguage.bind(this);
 
@@ -48,9 +50,9 @@ export default class SubmitCode extends Component  {
             "?base64_encoded=true&wait=false&fields=*",
             "?base64_encoded=true&fields=*"
         ];
-        this.MAIN_HOST0 = this.HOST0[0];
-        this.MAIN_HOST1 = this.HOST1[0];
-        this.MAIN_HOST2 = this.HOST2[0];
+        this.MAIN_HOST0 = this.HOST0[1];
+        this.MAIN_HOST1 = this.HOST1[1];
+        this.MAIN_HOST2 = this.HOST2[1];
     }
 
     componentDidMount = async() => {
@@ -122,7 +124,8 @@ export default class SubmitCode extends Component  {
                 stdin: btoa(input),
                 language_id: currentSubmission.language_id,
                 expected_output: btoa(this.state.outputs[index]),
-                memory_limit: "2048"  
+                memory_limit: JSON.stringify(this.state.memory_limit * 1000),
+                cpu_time_limit: JSON.stringify(this.state.time_limit),
             }
         });
     }
@@ -148,7 +151,7 @@ export default class SubmitCode extends Component  {
                     time_created,
                     time_limit,
                 } = data;
-                this.setState({inputs: inputs, outputs: outputs});
+                this.setState({inputs: inputs, outputs: outputs, time_limit: time_limit, memory_limit: mem_limit});
             })
             .catch((error) => {
                 console.log(error);
@@ -161,69 +164,77 @@ export default class SubmitCode extends Component  {
         
         e.preventDefault();
         await this.loadTestcases(this.state.problemID); // load testcases from database
-        let ourSubmission = {
-            submission_id: "",
-            user_id: "doanphuduc123",
-            problem_id: this.state.problemID,
-            language_id: this.state.language_id,
-            language: this.idx2LanguageName[this.state.language_id],
-            verdict: "Running",
-            time: "0",
-            memory: "0",
-            code: this.state.source,
-        }
-        // get last submission id + 1 for our submission
-        await axios.post('http://localhost:5000/viewsubmission/last-submission-id')
-                    .then(response => {
-                        // console.log((parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0'));
-                        ourSubmission.submission_id = (parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0');
-                    })  
-                    .catch(error => {
-                        console.log(error);
-                    });
-        console.log("ourSubmission = ", ourSubmission);
-        axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
-                    .then(response => {
-                        // console.log(response);
-                    })  
-                    .catch(error => {
-                        console.log(error);
-                    });
-        this.props.history.push('viewsubmission');
-
-        // create a list of submission info {source, stdin, language_id} test to submit
-        const submissions = this.getSubmissions(ourSubmission);
-        console.log("submissions = ", submissions);
-
-        const submissionPromises = submissions.map(this.submitOneTest);
-        // // judge all tests
-        const ourResults = await Promise.all(submissionPromises);
-        let finalResult = "Accepted";
-        let finalTime = 0;
-        let finalMem = 0;
-        for (const result of ourResults) {
-            if (result.status.description !== "Accepted") {
-                console.log("result = ", result);
-                finalResult = result.status.description;
-                break;
+        console.log("language_id = ", this.state.language_id);
+        console.log("time limit = ", this.state.time_limit);
+        console.log("mem limit = ", this.state.memory_limit);
+        if (this.state.inputs == null) {
+            // problem not found
+            console.log("problem id not found\n");
+        } else {
+            let ourSubmission = {
+                submission_id: "",
+                user_id: "doanphuduc123",
+                problem_id: this.state.problemID,
+                language_id: this.state.language_id,
+                language: this.idx2LanguageName[this.state.language_id],
+                verdict: "Running",
+                time: '0',
+                memory: '0',
+                code: this.state.source,
             }
-            if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
-            if (result.memory > finalMem) finalMem = result.memory;
+            // get last submission id + 1 for our submission
+            await axios.post('http://localhost:5000/viewsubmission/last-submission-id')
+                        .then(response => {
+                            // console.log((parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0'));
+                            ourSubmission.submission_id = (parseInt(response.data[0].submission_id) + 1).toString().padStart(5, '0');
+                        })  
+                        .catch(error => {
+                            console.log(error);
+                        });
+            console.log("ourSubmission = ", ourSubmission);
+            axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
+                        .then(response => {
+                            // console.log(response);
+                        })  
+                        .catch(error => {
+                            console.log(error);
+                        });
+            this.props.history.push('viewsubmission');
+
+            // create a list of submission info {source, stdin, language_id} test to submit
+            const submissions = this.getSubmissions(ourSubmission);
+            console.log("submissions = ", submissions);
+
+            const submissionPromises = submissions.map(this.submitOneTest);
+            // // judge all tests
+            const ourResults = await Promise.all(submissionPromises);
+            let finalResult = "Accepted";
+            let finalTime = 0;
+            let finalMem = 0;
+            for (const result of ourResults) {
+                console.log("result = ", result);
+                if (result.status.description !== "Accepted") {
+                    finalResult = result.status.description;
+                    break;
+                }
+                if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
+                if (result.memory > finalMem) finalMem = result.memory;
+            }
+
+            let newSubmission = ourSubmission;
+            newSubmission.verdict = finalResult;
+            newSubmission.time = (finalTime * 1000).toString();
+            newSubmission.memory = finalMem.toString();
+            console.log("newSubmission = ", newSubmission);
+
+            axios.post('http://localhost:5000/viewsubmission/modify', newSubmission)
+                        .then(response => {
+                            console.log(response);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
         }
-
-        let newSubmission = ourSubmission;
-        newSubmission.verdict = finalResult;
-        newSubmission.time = (finalTime * 1000).toString();
-        newSubmission.memory = finalMem.toString();
-        console.log("newSubmission = ", newSubmission);
-
-        axios.post('http://localhost:5000/viewsubmission/modify', newSubmission)
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
     }
 
     changeSource = (value) => {
@@ -236,7 +247,7 @@ export default class SubmitCode extends Component  {
     onInputChange = (e) => {
         e.preventDefault();
         this.setState({problemID: e.target.value});
-    }
+    }   
 
     render() {
         return (
@@ -255,9 +266,9 @@ export default class SubmitCode extends Component  {
                 <div className='Language'>
                     <p>Language:</p>
                     <select name="programmingLanguage" id="pl" onChange={this.changeLanguage}>
-                        <option value="2">C++</option>
-                        <option value="4">Java</option>
-                        <option value="10">Python</option>
+                        <option value="54">C++</option>
+                        <option value="62">Java</option>
+                        <option value="71">Python</option>
                     </select>
                 </div>
 
