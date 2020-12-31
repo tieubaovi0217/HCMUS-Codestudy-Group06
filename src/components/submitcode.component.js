@@ -158,7 +158,7 @@ export default class SubmitCode extends Component  {
             });
         return response;
     }
-
+ònlic
     
     submit = async (e) => {
         
@@ -192,7 +192,7 @@ export default class SubmitCode extends Component  {
                             console.log(error);
                         });
             console.log("ourSubmission = ", ourSubmission);
-            axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
+            await axios.post('http://localhost:5000/viewsubmission/add', ourSubmission)
                         .then(response => {
                             // console.log(response);
                         })  
@@ -213,12 +213,12 @@ export default class SubmitCode extends Component  {
             let finalMem = 0;
             for (const result of ourResults) {
                 console.log("result = ", result);
+                if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
+                if (result.memory > finalMem) finalMem = result.memory;
                 if (result.status.description !== "Accepted") {
                     finalResult = result.status.description;
                     break;
                 }
-                if (parseFloat(result.time) > finalTime) finalTime = parseFloat(result.time);
-                if (result.memory > finalMem) finalMem = result.memory;
             }
 
             let newSubmission = ourSubmission;
