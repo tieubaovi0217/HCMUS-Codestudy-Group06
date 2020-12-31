@@ -13,7 +13,6 @@ router.route("/").get((req, res) => {
 
 router.route("/login").post((req, res) => {
   // not yet handle
- 
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.status(409).send("No User Exists");
@@ -56,20 +55,39 @@ router.route("/profile/:username").get((req, res) => {
 });
 
 router.route("/profile/update/:username").post((req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const email = req.body.email;
-  User.find({"username": req.params.username})
-  .then((user) => {
-    if (password != null)
-      user[0].password = password;
-    if (email != null)
-      user[0].email = email;
-    user[0].save()
-    .then(() => res.json(user[0]))
-    .catch(err => res.status(400).json("Unable to change!"));
-  })
-  .catch(err => res.status(400).json("Invalid username"));
+  if (req.body.newPassword === '')
+  {
+    req.body.newPassword = req.body.oldPassword;
+    req.body.CnewPassword = req.body.oldPassword;
+  }
+  User.findOne({ username: req.body.username }, async (err, user) => {
+    try {
+      if (err) throw err;
+      if (user) {
+        const newPassword = await bcrypt.hash(req.body.newPassword, 10);
+        const email = req.body.email;
+
+        bcrypt.compare(req.body.oldPassword, user.password, (err, result) => {
+          if (result){
+            if (req.body.newPassword.length < 6)
+              res.json("New password should contain at least 5 character")
+            else if (req.body.newPassword != req.body.CnewPassword)
+              res.json("Confirmation mismatched");
+            else {
+              user.email = email;
+              user.password = newPassword;
+              user.save();
+              res.json("OK");
+            }
+          }
+          else
+            res.json("Invalid current password");
+        })
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
 });
 
 module.exports = router;

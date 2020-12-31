@@ -74,14 +74,13 @@ export default class Profile extends Component {
             axios
             .get(`http://localhost:5000/users/profile/${this.state.usernamefake}`)
             .then((response) => {
-                let {username, password, email, rating, joined} = response.data[0];
+                let {username, email, rating, joined} = response.data[0];
                 // console.log(response.data[0]);
                 //console.log(username);
                 //username=localStorage.getItem("username");
                 //email=username + "@fit.hcmus.edu.vn";
                 this.setState({
                     username: username,
-                    password: password,
                     email: email,
                     rating: rating,
                     joined: joined
@@ -155,7 +154,6 @@ export default class Profile extends Component {
                     </div>}
                     {this.state.page == 1 && <ProfileSetting
                         username={this.state.username}
-                        password={this.state.password}
                         email={this.state.email}
                     />}
                 </div>

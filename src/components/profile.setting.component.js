@@ -8,7 +8,6 @@ export default class ProfileSetting extends Component {
         super(props);
         this.state = {
             emailInput: this.props.email,
-            curPass: this.props.password,
             oldPass: '',
             newPass: '',
             CnewPass: '',
@@ -17,7 +16,6 @@ export default class ProfileSetting extends Component {
 
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.checkValid = this.checkValid.bind(this);
     }
 
     handleChange(event) {
@@ -26,48 +24,44 @@ export default class ProfileSetting extends Component {
             [name]: value
         });
     }
-
-    checkValid() {
-        if (this.state.oldPass != this.state.curPass)
-            return 'Invalid current password';
-        if (this.state.newPass.length > 0 && this.state.newPass.length < 5)
-            return 'New password should contain at least 5 character';
-        if (this.state.newPass != this.state.CnewPass)
-            return 'Confirmation mismatched';
-        return 'OK';
-    }
     
     submit(){
-        var msg = this.checkValid();
-        this.setState({
-            error: msg,
-            errorColor: null
-        });
-        if (msg != 'OK') return;
         let username = this.props.username;
-        let password = this.state.newPass;
-        if (password === '') password = this.state.oldPass;
+        let oldPassword = this.state.oldPass;
+        let newPassword = this.state.newPass;
+        let CnewPassword = this.state.CnewPass;
+        if (newPassword === '')
+        {
+            newPassword = this.state.oldPass;
+            CnewPassword = newPassword;
+        }
         let email = this.state.emailInput;
         axios.post(`http://localhost:5000/users/profile/update/${this.props.username}`, {
             username,
-            password,
+            oldPassword,
+            newPassword,
+            CnewPassword,
             email
         })
         .then(response => {
             console.log(response.data);
-            password = response.data.password;
-            email = response.data.email;
+            let msg = response.data;
+            if (msg === 'OK')
+                this.setState({
+                    emailInput: email,
+                    oldPass: '',
+                    newPass: '',
+                    CnewPass: '',
+                    error: 'Successfully updated',
+                    errorColor: 'green'
+                });
+            else
+                this.setState({
+                    error: msg,
+                    errorColor: null
+                })
         })
         .catch((error) => console.log(error));
-        this.setState({
-            emailInput: email,
-            curPass: password,
-            oldPass: '',
-            newPass: '',
-            CnewPass: '',
-            error: 'Successfully updated',
-            errorColor: 'green'
-        })
     }
 
     render() {
