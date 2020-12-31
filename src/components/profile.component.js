@@ -13,8 +13,8 @@ export default class Profile extends Component {
         super(props)
         this.state = {
             page : 0,
-            username: localStorage.getItem("username"),
-            isLoggedIn = localStorage.getItem("isLoggedIn")
+            usernamefake: localStorage.getItem("username"),
+            isLoggedIn: localStorage.getItem("isLoggedIn")
         };
 
 
@@ -30,7 +30,7 @@ export default class Profile extends Component {
         var date2 = joined.getTime();
         var res = '';
         const diffTime = Math.abs(date2 - date1);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays > 365)
             if (Math.floor(diffDays / 365) === 1)
                 res = 'a year ago';
@@ -72,7 +72,7 @@ export default class Profile extends Component {
         if (this.state.isLoggedIn)
         {
             axios
-            .get(`http://localhost:5000/users/profile/${this.state.username}`)
+            .get(`http://localhost:5000/users/profile/${this.state.usernamefake}`)
             .then((response) => {
                 let {username, password, email, rating, joined} = response.data[0];
                 // console.log(response.data[0]);
