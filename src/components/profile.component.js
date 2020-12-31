@@ -13,7 +13,8 @@ export default class Profile extends Component {
         super(props)
         this.state = {
             page : 0,
-            username1: 'doanphuduc'
+            username: localStorage.getItem("username"),
+            isLoggedIn = localStorage.getItem("isLoggedIn")
         };
 
 
@@ -68,23 +69,29 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-        axios
-        .get(`http://localhost:5000/users/profile/${this.state.username1}`)
-        .then((response) => {
-            let {username, password, email, rating, joined} = response.data[0];
-            // console.log(response.data[0]);
-            this.setState({
-                username: username,
-                password: password,
-                email: email,
-                rating: rating,
-                joined: joined
+        if (this.state.isLoggedIn)
+        {
+            axios
+            .get(`http://localhost:5000/users/profile/${this.state.username}`)
+            .then((response) => {
+                let {username, password, email, rating, joined} = response.data[0];
+                // console.log(response.data[0]);
+                //console.log(username);
+                //username=localStorage.getItem("username");
+                //email=username + "@fit.hcmus.edu.vn";
+                this.setState({
+                    username: username,
+                    password: password,
+                    email: email,
+                    rating: rating,
+                    joined: joined
+                })
+                this.preCal();
             })
-            this.preCal();
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
     }
 
     toProfilePage() {
@@ -100,57 +107,62 @@ export default class Profile extends Component {
     }
 
     render() {
-        return (
-            // Your code goes here, must included in a <div>
-            <div className='Profile'>
-                <div className='NavigateButton'>
-                    <Button onClick={this.toProfilePage}>
-                        PROFILE
-                    </Button>
-                    <Button onClick={this.toSettingPage}>
-                        SETTING
-                    </Button>
+        let {isLoggedIn} = this.state;
+        if (isLoggedIn)
+            return (
+                <div className='Profile'>
+                    <div className='NavigateButton'>
+                        <Button onClick={this.toProfilePage}>
+                            PROFILE
+                        </Button>
+                        <Button onClick={this.toSettingPage}>
+                            SETTING
+                        </Button>
+                    </div>
+                    {this.state.page == 0 && <div className='ProfileInfor'>
+                        <div className='ProfileInformation'>
+                            <h1 className='Username' style={{
+                                color: this.state.color
+                            }}>
+                                {this.state.username}
+                            </h1>
+                            <br/>
+                            <ProfileItem
+                                image={ratingLogo}
+                                title='Contest rating:'
+                                content={this.state.rating}
+                                contentColor={this.state.color}
+                                fontWeight='bold'
+                            />
+                            <ProfileItem
+                                image={emailLogo}
+                                title='Email:'
+                                content={this.state.email}
+                            />
+                            <ProfileItem
+                                title='Registered:'
+                                content={this.state.register}
+                                contentColor='gray'
+                            />
+                        </div>
+                        <div className='ProfilePicture'>
+                            <img src = {pic}/>
+                            <br/>
+                            <p>
+                                Change photo
+                            </p>
+                        </div>
+                    </div>}
+                    {this.state.page == 1 && <ProfileSetting
+                        username={this.state.username}
+                        password={this.state.password}
+                        email={this.state.email}
+                    />}
                 </div>
-                {this.state.page == 0 && <div className='ProfileInfor'>
-                    <div className='ProfileInformation'>
-                        <h1 className='Username' style={{
-                            color: this.state.color
-                        }}>
-                            {this.state.username}
-                        </h1>
-                        <br/>
-                        <ProfileItem
-                            image={ratingLogo}
-                            title='Contest rating:'
-                            content={this.state.rating}
-                            contentColor={this.state.color}
-                            fontWeight='bold'
-                        />
-                        <ProfileItem
-                            image={emailLogo}
-                            title='Email:'
-                            content={this.state.email}
-                        />
-                        <ProfileItem
-                            title='Registered:'
-                            content={this.state.register}
-                            contentColor='gray'
-                        />
-                    </div>
-                    <div className='ProfilePicture'>
-                        <img src = {pic}/>
-                        <br/>
-                        <p>
-                            Change photo
-                        </p>
-                    </div>
-                </div>}
-                {this.state.page == 1 && <ProfileSetting
-                    username={this.state.username}
-                    password={this.state.password}
-                    email={this.state.email}
-                />}
-            </div>
-        );
+            );
+        else
+            return(
+                <p> Please log in</p>
+            );
     }
 }

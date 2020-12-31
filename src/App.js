@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,13 +21,104 @@ import Register from "./components/register.component";
 import NotFoundPage from "./components/notfoundpage.component";
 import Footer from "./footer";
 import ViewOneSubmission from "./components/view-one-submission.component"
+import { Link, NavLink } from "react-router-dom";
+import logo from "./pictures/logo_transparent.png";
 
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-function App() {
-  return (
+    this.handler = this.handler.bind(this);
+
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: "",
+      button1: "Login",
+      button2: "Register",
+      link1: "/login",
+      link2: "/register",
+    };
+  }
+
+  handler(check)  {
+    let stat = "";
+    if (check === true) {
+      stat = "LOGGED_IN";
+      this.setState({
+        loggedInStatus: stat,
+        button1: localStorage.getItem("username"),
+        button2: "Logout",
+        link1: "/profile",
+        link2: "/login",
+      });
+    } else {
+      stat = "NOT_LOGGED_IN";
+      this.setState({
+        loggedInStatus: stat,
+        button1: "Login",
+        button2: "Register",
+        link1: "/login",
+        link2: "/register",
+      });
+    }
+    localStorage.setItem("isLoggedIn", stat);
+  }
+
+  handleOnClickButton2 = () => {
+    //console.log(localStorage.getItem("isLoggedIn"));
+    let isLoggedIn = localStorage.getItem("isLoggedIn")
+    if(isLoggedIn) {
+      localStorage.clear();
+      this.setState({
+        loggedInStatus: "NOT_LOGGED_IN",
+        button1: "Login",
+        button2: "Register",
+        link1: "/login",
+        link2: "/register",
+      });
+    } 
+  }
+
+  render() {
+    return (
     <BrowserRouter style={{ height: "100vh" }}>
       <div className="container">
-        <Navbar />
+      <h1>{this.state.loggedInStatus}</h1>
+          {/* BEGIN OF NAVBAR  */}
+          <div>
+            <div className="mt-2 d-flex align-items-center">
+              <Link className="navbar-brand flex-grow-1" href="/">
+                <img src={logo} width="200" height="60" alt="logo" />
+              </Link>
+
+              <NavLink exact to={this.state.link1} className="nav-link">
+                {this.state.button1}
+              </NavLink>
+
+              <NavLink exact to={this.state.link2} className="nav-link" onClick={this.handleOnClickButton2}>
+                {this.state.button2}
+              </NavLink>
+            </div>
+
+            <nav className="nav nav-pills nav-justified bg-light ">
+              <NavLink exact to="/" className="nav-link">
+                Main Page
+              </NavLink>
+              <NavLink exact to="/problemset" className="nav-link">
+                Problem Sets
+              </NavLink>
+              <NavLink exact to="/submitcode" className="nav-link">
+                Submit Code
+              </NavLink>
+              <NavLink exact to="/profile" className="nav-link">
+                Profile
+              </NavLink>
+              <NavLink exact to="/viewsubmission" className="nav-link">
+                View Submission
+              </NavLink>
+            </nav>
+          </div>
+          {/* END OF NAVBAR */}
         <br />
         <Switch>
           <Route exact path="/" exact component={MainPage} />
@@ -44,7 +135,10 @@ function App() {
     
           <Route exact path="/viewsubmission" component={ViewSubmission} />
       
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login"
+              render={(props) => {
+                return <Login handler={this.handler} {...props} />;
+              }} />
       
           <Route exact path="/register" component={Register} />
 
@@ -57,7 +151,8 @@ function App() {
       {/* Footer */}
       <Footer />
     </BrowserRouter>
-  );
+    )
+  };
 }
 
 export default App;

@@ -5,30 +5,46 @@ export default class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
+      loginUsername: "",
+      loginPassword: "",
     };
   }
+
   onUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
+    this.setState({ loginUsername: event.target.value });
   };
 
   onPasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+    this.setState({ loginPassword: event.target.value });
   };
+
+ 
   onSubmitSignIn = () => {
-    let { username, password } = this.state;
+    
+    let { loginUsername, loginPassword } = this.state;
+    let now = this;
     axios
       .post("http://localhost:5000/users/login", {
-        username,
-        password,
+        username: loginUsername,
+        password: loginPassword,
       })
       .then(function (response) {
         console.log(response);
+        localStorage.setItem("username", loginUsername);
+        let username = localStorage.getItem("username");
+
+        console.log(username);
+        alert("You have successfully logged in!!!");
+
+        localStorage.setItem("isLoggedIn", true);
+        now.props.handler(true);
+        now.props.history.push('/profile');
       })
       .catch(function (error) {
         console.log(error);
+        alert("Login failed");
       });
+      
   };
 
   render() {
