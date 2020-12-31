@@ -17,6 +17,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Muốn lấy tên current username thì mn dùng cái này
 ### `eg: let currentUser = localStorage.getItem("username");
+## Muốn lấy trạng thái đăng nhập thì mn dùng cái này
+### `eg: let isLoggedIn = localStorage.getItem("isLoggedIn");
 
 
 The page will reload if you make edits.\
