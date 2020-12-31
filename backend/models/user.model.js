@@ -6,9 +6,8 @@ var UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   joined: { type: Date, default: Date.now },
-  email: String,
-  rating: Number,
-  status: String
+  email: {type: String, default: 'abc@xyz.com'},
+  rating: {type: Number, default: 0}
 });
 
 UserSchema.plugin(passportLocalMongoose);

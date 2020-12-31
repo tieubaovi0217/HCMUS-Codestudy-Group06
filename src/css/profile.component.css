@@ -22,11 +22,6 @@
     margin: 15px 15px 15px 15px;
 }
 
-.Profile .ProfileInfor .ProfileInformation .Title {
-    margin: 0 0 0 0;
-    font-size: 18px;
-}
-
 .Profile .ProfileInfor .ProfileInformation .Username {
     margin: 0 0 0 0;
     font-size: 25px;
@@ -60,4 +55,9 @@
     border-width: 2px;
     border-color: lightgray;
     border-radius: 25px;
+}
+
+.Profile .ProfileInfor .ProfileInformation .Username{
+    font-size: 40px;
+    font-family: fantasy;
 }

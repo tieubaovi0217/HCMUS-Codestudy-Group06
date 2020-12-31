@@ -6,6 +6,7 @@ export default class ProfileItem extends Component {
         const {contentColor, fontWeight} = this.props;
         return (
             <div className='ProfileItem'>
+                {this.props.image != null && <img src = {this.props.image}/>}
                 <p className='ItemTitle'>
                     {this.props.title}
                 </p>
