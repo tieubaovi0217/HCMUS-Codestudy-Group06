@@ -23,6 +23,8 @@ export default class Profile extends Component {
         .then((response) => {
             let {username, email} = response.data[0];
             console.log(username);
+            username=localStorage.getItem("username");
+            email=username + "@fit.hcmus.edu.vn";
             console.log("HELLO");
             this.setState({
                 username: username,

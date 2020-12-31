@@ -1,35 +1,44 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+
 const axios = require("axios");
+
 export default class Register extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
+      registerUsername: "",
+      registerPassword: "",
     };
   }
   onUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
+    this.setState({ registerUsername: event.target.value });
   };
 
   onPasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+    this.setState({ registerPassword: event.target.value });
   };
   onSubmitSignUp = () => {
-    let { username, password } = this.state;
-    axios
-      .post("http://localhost:5000/users/register", {
-        username,
-        password,
+    let { registerUsername, registerPassword} = this.state;
+    let now = this;
+    axios.post("http://localhost:5000/users/register", {
+        username: registerUsername,
+        password: registerPassword,
       })
       .then(function (response) {
+        
+        //this.props.handleSuccessfulAuth(response.data);
+
         console.log(response);
+        alert('Congratulations, your account has been successfully created.');
+        now.props.history.push('/login');
       })
       .catch(function (error) {
+        alert('Username already exists. Please try with another one');
         console.log(error);
       });
-    this.props.history.push("/login");
+   
+     
   };
 
   render() {
