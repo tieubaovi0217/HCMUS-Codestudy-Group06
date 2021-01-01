@@ -175,7 +175,7 @@ export default class ViewProblem extends Component {
         ))}
 
         <Divider className={this.classes.divider} />
-        <Button color="primary" type="submit" onClick={this.onClickSubmit}>
+        <Button class = "btn btn-primary btn-sm btn-block" color="primary" type="submit" onClick={this.onClickSubmit}>
           Submit
         </Button>
       </Box>
