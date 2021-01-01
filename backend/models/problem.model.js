@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const problemSchema = new Schema({
   problem_id: {
     type: String,
@@ -55,8 +56,9 @@ const problemSchema = new Schema({
   outputs: {
     type: [String],
     require: true,
-  },
-});
+  }
+  }
+  );
 
 const Problem = mongoose.model("Problem", problemSchema);
 module.exports = Problem;
