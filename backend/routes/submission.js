@@ -7,13 +7,19 @@ router.route('/').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
+router.route('/:username').get((req,res) =>
+{
+  Submission.find({"user_id":req.params.username}).sort({submission_id:-1})
+  .then((submission) => res.json(submission))
+  .catch((err) => res.status(400).json("Error: " + err));
+}
+);
   
 router.route('/add').post((req, res) => {
 
   const submission_id =  req.body.submission_id;
   const user_id = req.body.user_id;
   const problem_id = req.body.problem_id;
-  //const time_submitted =  Date.parse(req.body.time_submitted); No tu lay gio hien tai roi khoi chinh
   const code = req.body.code;
   const language = req.body.language;
   const verdict = req.body.verdict;

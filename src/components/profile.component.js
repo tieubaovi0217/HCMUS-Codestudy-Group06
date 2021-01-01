@@ -16,8 +16,6 @@ export default class Profile extends Component {
             usernamefake: localStorage.getItem("username"),
             isLoggedIn: localStorage.getItem("isLoggedIn")
         };
-
-
         this.toProfilePage = this.toProfilePage.bind(this);
         this.toSettingPage = this.toSettingPage.bind(this);
         this.preCal = this.preCal.bind(this);
@@ -160,7 +158,7 @@ export default class Profile extends Component {
             );
         else
             return(
-                <p> Please log in</p>
+                <p> Please log in to View your profile</p>
             );
     }
 }

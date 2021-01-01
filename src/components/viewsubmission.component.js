@@ -9,19 +9,29 @@ import { ControlledEditor } from "@monaco-editor/react";
 export default class ViewSubmission extends Component {
   constructor(props) {
     super(props);
-    this.state = { submissions: [] };
+    this.state = { 
+      submissions: [],
+      usernamefake : localStorage.getItem("username"),
+      isLoggedIn : localStorage.getItem("isLoggedIn")
+     };
   }
 
   // get data from server
   componentDidMount() {
-    console.log("did mount");
-    this.getData();
-    this.timer = setInterval(() => this.getData(), 4000);
+     console.log("did mount");
+     this.state.usernamefake = localStorage.getItem("username");
+     this.state.isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (this.state.isLoggedIn)
+    {
+      this.getData();
+      this.timer = setInterval(() => this.getData(), 4000);
+    }
   }
+
   getData() {
     console.log("get data");
     axios
-      .get("http://localhost:5000/viewsubmission/")
+      .get(`http://localhost:5000/viewsubmission/${this.state.usernamefake}`)
       .then((response) => {
         this.setState({ submissions: response.data });
         console.log(this.state.submissions);
@@ -30,11 +40,14 @@ export default class ViewSubmission extends Component {
         console.log(error);
       });
   }
+
+  
   componentWillUnmount() {
     console.log("unmount");
     clearInterval(this.timer);
     this.timer = null;
   }
+
 
   renderTableHeader() {
     return (
@@ -110,15 +123,26 @@ export default class ViewSubmission extends Component {
 
   render() {
     console.log(this.state.submissions[1]);
-
-    return (
-      <div>
-        <table class="table">
-          <thead>{this.renderTableHeader()}</thead>
-
-          <tbody>{this.renderTableData()}</tbody>
-        </table>
-      </div>
-    );
+    console.log(this.state.usernamefake);
+    console.log(this.state.isLoggedIn);    
+    let {isLoggedIn} = this.state;
+    if (isLoggedIn)
+    {
+      return (
+        <div>
+          <table class="table">
+            <thead>{this.renderTableHeader()}</thead>
+            <tbody>{this.renderTableData()}</tbody>
+          </table>
+        </div>
+        );
+    }
+    else
+    {
+      return(
+        <p> Please log in to View your Submission</p>
+       );
+    }
   }
+
 }

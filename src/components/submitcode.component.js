@@ -24,7 +24,8 @@ export default class SubmitCode extends Component  {
             '71': 'python',
         }
         this.changeLanguage = this.changeLanguage.bind(this);
-
+        this.usernamefake = localStorage.getItem("username");
+        this.isLoggedIn = localStorage.getItem("isLoggedIn");
 
         // some constant number for judge0 api
         this.API_KEY = [
@@ -56,6 +57,8 @@ export default class SubmitCode extends Component  {
     }
 
     componentDidMount = async() => {
+        this.usernamefake = localStorage.getItem("username");
+        this.isLoggedIn = localStorage.getItem("isLoggedIn");
         if(this.props.location.state){
             let id = this.props.location.state.id;
             this.setState({problemID: id});
@@ -158,7 +161,6 @@ export default class SubmitCode extends Component  {
             });
         return response;
     }
-ònlic
     
     submit = async (e) => {
         
@@ -173,7 +175,7 @@ export default class SubmitCode extends Component  {
         } else {
             let ourSubmission = {
                 submission_id: "",
-                user_id: "doanphuduc123",
+                user_id: this.usernamefake,
                 problem_id: this.state.problemID,
                 language_id: this.state.language_id,
                 language: this.idx2LanguageName[this.state.language_id],
@@ -250,6 +252,8 @@ export default class SubmitCode extends Component  {
     }   
 
     render() {
+        if (this.isLoggedIn)
+        {
         return (
             // Your code goes here, must included in a <div>
             <div className="SubmitCode">
@@ -289,4 +293,12 @@ export default class SubmitCode extends Component  {
             </div>
         );
     }
+    
+    else
+    {
+        return(
+        <p> Please log in to Submit Code</p>
+        );
+    }
+}
 }

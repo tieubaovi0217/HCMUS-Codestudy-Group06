@@ -142,7 +142,6 @@ class App extends Component {
       
           <Route exact path="/register" component={Register} />
 
-          <Route exact path="/viewsubmission/test" component={ViewOneSubmission} />
 
           <Route component={NotFoundPage}/>
         </Switch>
