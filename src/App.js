@@ -40,6 +40,29 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    let isLoggedIn = localStorage.getItem("isLoggedIn");
+    if(isLoggedIn === "LOGGED_IN") {
+      this.setState({
+        loggedInStatus: isLoggedIn,
+        button1: localStorage.getItem("username"),
+        button2: "Logout",
+        link1: "/profile",
+        link2: "/login",
+      });
+    }
+    else {
+      this.setState({
+        loggedInStatus: "NOT_LOGGED_IN",
+        button1: "Login",
+        button2: "Register",
+        link1: "/login",
+        link2: "/register",
+      });
+    }
+  }
+
+
   handler(check)  {
     let stat = "";
     if (check === true) {
