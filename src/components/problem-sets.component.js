@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../css/problem-sets.component.css";
 import { Link } from "react-router-dom";
+import { MathComponent } from "mathjax-react";
 import axios from "axios";
 
 {
@@ -40,7 +41,8 @@ export default class ProblemSets extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/problemset/")
+    axios
+      .get("http://localhost:5000/problemset/")
       .then((response) => {
         this.setState({ problems: response.data });
         console.log(this.state.problems);
@@ -53,7 +55,7 @@ export default class ProblemSets extends Component {
   problemList() {
     return this.state.problems.map((currentproblem) => {
       return <Problem problem={currentproblem} key={currentproblem._id} />;
-    }); 
+    });
   }
 
   render() {
@@ -108,9 +110,7 @@ export default class ProblemSets extends Component {
                     className="_FilterByTagsFrame_addTagLabel"
                     style={{ display: "none" }}
                   ></label>
-                  <a className="_FilterByTagsFrame_addTagLink" href="!#">
-                    Add&nbsp;tag
-                  </a>
+                  <a className="_FilterByTagsFrame_addTagLink">Add&nbsp;tag</a>
                 </div>
 
                 <div className="_FilterByTagsFrame_button">
@@ -137,39 +137,6 @@ export default class ProblemSets extends Component {
                   <th className=" " style={{ width: "5em" }}>
                     Last submission
                   </th>
-                </tr>
-                <tr>
-                  <td className="left  ">
-                    <a href="/problemset/problem/1430/D">1430D</a>
-                  </td>
-                  <td className=" text-align-left">
-                    <a href="/problemset/problem/1430/D">String Deletion</a>
-                  </td>
-                  <td className=" ">
-                    <a href="/contest/1430/submission/96118697">96118697</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="left  dark ">
-                    <a href="/problemset/problem/1300/E">1300E</a>
-                  </td>
-                  <td className=" dark text-align-left">
-                    <a href="/problemset/problem/1300/E">Water Balance</a>
-                  </td>
-                  <td className=" dark ">
-                    <a href="/contest/1300/submission/72283642">72283642</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="left bottom ">
-                    <a href="/problemset/problem/1300/C">1300C</a>
-                  </td>
-                  <td className="bottom text-align-left">
-                    <a href="/problemset/problem/1300/C">Anu Has a Function</a>
-                  </td>
-                  <td className="bottom ">
-                    <a href="/contest/1300/submission/70948668">70948668</a>
-                  </td>
                 </tr>
               </tbody>
             </table>
