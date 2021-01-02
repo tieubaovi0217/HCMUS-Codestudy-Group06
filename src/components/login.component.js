@@ -18,15 +18,12 @@ export default class Login extends Component {
     this.setState({ loginPassword: event.target.value });
   };
 
- 
   onSubmitSignIn = () => {
-    
     let { loginUsername, loginPassword } = this.state;
-    if(loginUsername === "") {
+    if (loginUsername === "") {
       alert("Username cannot be empty!");
       return;
-    }
-    else if(loginPassword === "") {
+    } else if (loginPassword === "") {
       alert("Password cannot be empty!");
       return;
     }
@@ -47,13 +44,12 @@ export default class Login extends Component {
 
         localStorage.setItem("isLoggedIn", true);
         now.props.handler(true);
-        now.props.history.push('/profile');
+        now.props.history.push("/profile");
       })
       .catch(function (error) {
         console.log(error);
-        alert("Login failed");
+        alert("Login failed! Invalid username or password!");
       });
-      
   };
 
   render() {

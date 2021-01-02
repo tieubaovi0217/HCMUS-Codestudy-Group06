@@ -4,12 +4,12 @@ import "./footer.css"
 
 function Footer() {
     return (
-      <div id="footer" className="footer text-center text-lg-start bg-light">
-        <div className="text-center p-3 text-secondary">
+      <div id="footer" className="footer text-center text-lg-start bg-info">
+        <div className="text-center p-3 text-secondary text-light">
           HCMUS - Software Engineering - 18CNTN - GROUP 06
           <br></br>
           © 2020 Copyright:  
-          <a className="text-primary " href="/">Codestudy.vn</a>
+          <a className="text-warning" href="/">CodeStudy.vn</a>
         </div>
       </div>
     );

@@ -106,7 +106,7 @@ class App extends Component {
     return (
     <BrowserRouter style={{ height: "100vh" }}>
       <div className="container">
-      <h1>{this.state.loggedInStatus}</h1>
+      {/* <h1>{this.state.loggedInStatus}</h1> */}
           {/* BEGIN OF NAVBAR  */}
           <div>
             <div className="mt-2 d-flex align-items-center">
@@ -114,29 +114,29 @@ class App extends Component {
                 <img src={logo} width="200" height="60" alt="logo" />
               </Link>
 
-              <NavLink exact to={this.state.link1} className="nav-link">
+              <NavLink exact to={this.state.link1} className="nav-link border border-primary rounded mr-2">
                 {this.state.button1}
               </NavLink>
 
-              <NavLink exact to={this.state.link2} className="nav-link" onClick={this.handleOnClickButton2}>
+              <NavLink exact to={this.state.link2} className="nav-link border border-primary rounded" onClick={this.handleOnClickButton2}>
                 {this.state.button2}
               </NavLink>
             </div>
 
             <nav className="nav nav-pills nav-justified bg-light ">
-              <NavLink exact to="/" className="nav-link">
+              <NavLink exact to="/" className="nav-link border border-primary rounded mr-2">
                 Main Page
               </NavLink>
-              <NavLink exact to="/problemset" className="nav-link">
+              <NavLink exact to="/problemset" className="nav-link border border-primary rounded mr-2">
                 Problem Sets
               </NavLink>
-              <NavLink exact to="/submitcode" className="nav-link">
+              <NavLink exact to="/submitcode" className="nav-link border border-primary rounded mr-2">
                 Submit Code
               </NavLink>
-              <NavLink exact to="/profile" className="nav-link">
-                Profile
+              <NavLink exact to="/profile" className="nav-link border border-primary rounded mr-2">
+                Profile 
               </NavLink>
-              <NavLink exact to="/viewsubmission" className="nav-link">
+              <NavLink exact to="/viewsubmission" className="nav-link border border-primary rounded">
                 View Submission
               </NavLink>
             </nav>
@@ -171,7 +171,7 @@ class App extends Component {
 
       </div>
       {/* Footer */}
-      <Footer />
+      <Footer className="bg-success" />
     </BrowserRouter>
     )
   };

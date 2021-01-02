@@ -28,7 +28,7 @@ export default class Register extends Component {
       alert("Password cannot be empty!");
       return;
     }
-    
+
     let now = this;
     axios.post("http://localhost:5000/users/register", {
         username: registerUsername,
@@ -90,6 +90,7 @@ export default class Register extends Component {
                       className="form-control"
                       id="exampleInputPassword1"
                       required
+                     
                     />
                     <div className="invalid-feedback">
                       Please enter a password.
