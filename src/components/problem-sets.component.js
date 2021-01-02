@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../css/problem-sets.component.css";
 import { Link } from "react-router-dom";
-import { MathComponent } from "mathjax-react";
+//import { MathComponent } from "mathjax-react";
 import axios from "axios";
 
 {

@@ -22,6 +22,15 @@ export default class Login extends Component {
   onSubmitSignIn = () => {
     
     let { loginUsername, loginPassword } = this.state;
+    if(loginUsername === "") {
+      alert("Username cannot be empty!");
+      return;
+    }
+    else if(loginPassword === "") {
+      alert("Password cannot be empty!");
+      return;
+    }
+
     let now = this;
     axios
       .post("http://localhost:5000/users/login", {

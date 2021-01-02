@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
 
 const axios = require("axios");
 
@@ -20,6 +19,16 @@ export default class Register extends Component {
   };
   onSubmitSignUp = () => {
     let { registerUsername, registerPassword} = this.state;
+
+    if(registerUsername === "") {
+      alert("Username cannot be empty!");
+      return;
+    }
+    else if(registerPassword === "") {
+      alert("Password cannot be empty!");
+      return;
+    }
+    
     let now = this;
     axios.post("http://localhost:5000/users/register", {
         username: registerUsername,
@@ -30,7 +39,7 @@ export default class Register extends Component {
         //this.props.handleSuccessfulAuth(response.data);
 
         console.log(response);
-        alert('Congratulations, your account has been successfully created.');
+        alert('Congratulations, your account has been successfully created!');
         now.props.history.push('/login');
       })
       .catch(function (error) {
@@ -86,7 +95,7 @@ export default class Register extends Component {
                       Please enter a password.
                     </div>
                   </div>
-
+                
                   <button
                     onClick={this.onSubmitSignUp}
                     type="submit"
