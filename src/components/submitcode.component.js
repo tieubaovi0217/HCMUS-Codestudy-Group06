@@ -84,7 +84,7 @@ export default class SubmitCode extends Component  {
                 },
                 body: JSON.stringify(submissionInfo),
             }
-        )
+        );
         const jsonResponse = await response.json();
 
         let jsonGetSolution = {
@@ -171,7 +171,7 @@ export default class SubmitCode extends Component  {
         console.log("mem limit = ", this.state.memory_limit);
         if (this.state.inputs == null) {
             // problem not found
-            console.log("problem id not found\n");
+            alert("Problem ID not found !");
         } else {
             let ourSubmission = {
                 submission_id: "",
