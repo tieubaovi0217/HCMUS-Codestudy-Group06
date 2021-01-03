@@ -29,14 +29,12 @@ export default class SubmitCode extends Component  {
 
         // some constant number for judge0 api
         this.API_KEY = [
-            "9455719a56msh35d983faa40a200p13022bjsn39f7624d578c",
-            "1a690a0e05msh9e8bab5d6175994p1ab7a0jsnb5e79d340c45",
-            "1002e69d2emsh7008355dd01bcaep17f172jsn5e21178e52ec",
-            "bc64132133msh807f97bac3da72ep1eec79jsnbf7f36d7c8c9",
-            "5f17bf13f5mshf89f557263a63fep1ef213jsnf68b654b1960",
-            "4f42740c49mshb897c55a9a595eep1dabcajsna9621b124f9a",
-            "da79fa596fmsh54d45dfa57a6e1dp17f924jsn004375a52168",
-            "f4d88088c4msh634ccaf0e2666a4p1fbd0bjsnbef0402a5eac"
+            "cdce9a4057msh927651e0ff3672ep12b97ejsn61d13f5ff00a",
+            "fd5e06d943mshaab1ec1bc5a2669p14950fjsn58d3a4b3d295",
+            "8a10748596msh2b9912ada0e6e7ap122fc7jsnf743fc57c95e",
+            "9ec22d26eemsh667d4486f803c30p1b74cajsnfb7366256027",
+            "01339e241dmsh3b766703701e14ep1732e0jsnbe8ff4dbd87b",
+            "f678df5c66msh95ffdba00b36b9ep1e40bbjsn2e80aab66142",
         ]
         this.NUMBER_OF_API_KEY = this.API_KEY.length;
         this.HOST0 = [
