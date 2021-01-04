@@ -8,8 +8,14 @@ export default class Register extends Component {
     this.state = {
       registerUsername: "",
       registerPassword: "",
+      registerEmail: "",
     };
   }
+
+  onEmailChange = (event) => {
+    this.setState({ registerEmail: event.target.value });
+  };
+
   onUsernameChange = (event) => {
     this.setState({ registerUsername: event.target.value });
   };
@@ -17,37 +23,65 @@ export default class Register extends Component {
   onPasswordChange = (event) => {
     this.setState({ registerPassword: event.target.value });
   };
-  onSubmitSignUp = () => {
-    let { registerUsername, registerPassword} = this.state;
 
-    if(registerUsername === "") {
+  validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  validateUsername = (username) => {
+    const re = /^[a-zA-Z0-9]+$/;
+    return re.test(username);
+  }
+
+  onSubmitSignUp = () => {
+    let { registerUsername, registerPassword, registerEmail } = this.state;
+
+    if (registerEmail === "") {
+      alert("Email cannot be empty!");
+      return;
+    } else if (registerUsername === "") {
       alert("Username cannot be empty!");
       return;
-    }
-    else if(registerPassword === "") {
+    } else if (registerPassword === "") {
       alert("Password cannot be empty!");
+      return;
+    }
+    
+
+    if(!this.validateEmail(registerEmail)) {
+      alert('Invalid form email adress!');
+      return;
+    }
+
+    if(!this.validateUsername(registerUsername)) {
+      alert('Invalid username! Your username should contain only a-z, A-Z, 0-9 characters!');
+      return;
+    }
+
+    if(registerPassword.length < 5) {
+      alert('Your password should contain at least 5 characters!');
       return;
     }
 
     let now = this;
-    axios.post("http://localhost:5000/users/register", {
+    axios
+      .post("http://localhost:5000/users/register", {
         username: registerUsername,
         password: registerPassword,
+        email: registerEmail,
       })
       .then(function (response) {
-        
         //this.props.handleSuccessfulAuth(response.data);
 
         console.log(response);
-        alert('Congratulations, your account has been successfully created!');
-        now.props.history.push('/login');
+        alert("Congratulations, your account has been successfully created!");
+        now.props.history.push("/login");
       })
       .catch(function (error) {
-        alert('Username already exists. Please try with another one');
+        alert("Username already exists. Please try with another one");
         console.log(error);
       });
-   
-     
   };
 
   render() {
@@ -66,6 +100,21 @@ export default class Register extends Component {
                   </small>
                 </p>
                 <div>
+                  <div className="form-group">
+                    <label for="">Email*</label>
+                    <input
+                      onChange={this.onEmailChange}
+                      type="email"
+                      name="email"
+                      className="form-control"
+                      id="exampleInputEmail"
+                      placeholder="abc@gmail.com"
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Please choose an email
+                    </div>
+                  </div>
                   <div className="form-group">
                     <label for="">Username*</label>
                     <input
@@ -90,13 +139,12 @@ export default class Register extends Component {
                       className="form-control"
                       id="exampleInputPassword1"
                       required
-                     
                     />
                     <div className="invalid-feedback">
                       Please enter a password.
                     </div>
                   </div>
-                
+
                   <button
                     onClick={this.onSubmitSignUp}
                     type="submit"
