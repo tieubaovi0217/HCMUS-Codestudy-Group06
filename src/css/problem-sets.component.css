@@ -16,7 +16,7 @@
 }
 
 .content-with-sidebar {
-  margin-right: 22em !important;
+  /* margin-right: 22em !important; */
 }
 .roundbox {
   background-color: white;
@@ -100,7 +100,7 @@
 }
 
 .datatable {
-  width: 100%;
+  width: 90%;
   position: relative;
 }
 
@@ -172,6 +172,7 @@
 }
 ._FilterByTagsFrame_difficulty input {
   width: 6rem;
+  z-index: 1;
 }
 ._FilterByTagsFrame_button {
   text-align: center;
