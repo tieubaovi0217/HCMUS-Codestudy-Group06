@@ -41,7 +41,7 @@ export default class ProblemSets extends Component {
 
   componentDidMount() {
     axios
-      .get("http://192.168.1.59:5000/problemset/")
+      .get("http://localhost:5000/problemset/")
       .then((response) => {
         this.setState({ problems: response.data });
         console.log(this.state.problems);

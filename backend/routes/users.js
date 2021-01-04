@@ -38,6 +38,7 @@ router.route("/register").post((req, res) => {
         const newUser = new User({
           username: req.body.username,
           password: hashedPassword,
+          email: req.body.email,
         });
         await newUser.save();
         res.status(200).send("User Created");
