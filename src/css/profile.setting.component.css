@@ -21,7 +21,7 @@
     margin-left: 20px;
     margin-top: auto;
     margin-bottom: auto;
-    height: 25px;
+    height: 27px;
     width: 250px;
 }
 
@@ -41,6 +41,7 @@
     width: fit-content;
     height: fit-content;
     background-color: rgb(224, 219, 219);
+    outline: none;
 }
 
 .ProfileSetting .Hahaha {

@@ -19,6 +19,13 @@ export default class Profile extends Component {
         this.toProfilePage = this.toProfilePage.bind(this);
         this.toSettingPage = this.toSettingPage.bind(this);
         this.preCal = this.preCal.bind(this);
+        this.emailHandler = this.emailHandler.bind(this);
+    }
+
+    emailHandler(email) {
+        this.setState({
+            email: email
+        });
     }
 
     preCal() {
@@ -153,6 +160,7 @@ export default class Profile extends Component {
                     {this.state.page == 1 && <ProfileSetting
                         username={this.state.username}
                         email={this.state.email}
+                        emailHandler={this.emailHandler}
                     />}
                 </div>
             );

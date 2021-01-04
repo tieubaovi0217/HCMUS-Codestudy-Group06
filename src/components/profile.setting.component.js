@@ -47,6 +47,7 @@ export default class ProfileSetting extends Component {
             console.log(response.data);
             let msg = response.data;
             if (msg === 'OK')
+            {
                 this.setState({
                     emailInput: email,
                     oldPass: '',
@@ -55,6 +56,9 @@ export default class ProfileSetting extends Component {
                     error: 'Successfully updated',
                     errorColor: 'green'
                 });
+                var emailHandler = this.props.emailHandler;
+                emailHandler(email);
+            }
             else
                 this.setState({
                     error: msg,

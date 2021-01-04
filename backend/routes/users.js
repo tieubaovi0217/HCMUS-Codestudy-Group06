@@ -70,7 +70,7 @@ router.route("/profile/update/:username").post((req, res) => {
         bcrypt.compare(req.body.oldPassword, user.password, (err, result) => {
           if (result){
             if (req.body.newPassword.length < 6)
-              res.json("New password should contain at least 5 character")
+              res.json("New password should contain at least 5 character");
             else if (req.body.newPassword != req.body.CnewPassword)
               res.json("Confirmation mismatched");
             else {
