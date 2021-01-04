@@ -16,7 +16,8 @@ export default class SubmitCode extends Component  {
             inputs: null,
             outputs: null,
             time_limit: '',
-            memory_limit: ''
+            memory_limit: '',
+            too_long: false,
         }
         this.idx2LanguageName = {
             '54': 'cpp',
@@ -161,12 +162,28 @@ export default class SubmitCode extends Component  {
     }
     
     submit = async (e) => {
-        
+        if (this.state.too_long) {
+            alert("You can not submit your code because it is too long!");
+            return null;
+        }
         e.preventDefault();
         await this.loadTestcases(this.state.problemID); // load testcases from database
         console.log("language_id = ", this.state.language_id);
         console.log("time limit = ", this.state.time_limit);
         console.log("mem limit = ", this.state.memory_limit);
+        console.log("length of source code = ", this.state.source.length);
+
+        // fix bug: telex text
+        try {
+            let sourceCodeConverted = btoa(this.state.source);
+        } catch(err) {
+            alert("Your code contain some banning characters");
+            return null;
+        }
+
+        // fix bug: source code is too long
+        
+
         if (this.state.inputs == null) {
             // problem not found
             alert("Problem ID not found !");
@@ -238,9 +255,18 @@ export default class SubmitCode extends Component  {
     }
 
     changeSource = (value) => {
-        this.setState ({
-            source: value
-        });
+        console.log(value.length);
+        if (value.length > 64000) {
+            this.setState({
+                too_long: true,
+            });
+            alert("Your code is too long, our platform can not submit >= 64Kb");
+        } else {
+            this.setState ({
+                too_long: false,
+                source: value
+            });
+        }
 
     }
 
