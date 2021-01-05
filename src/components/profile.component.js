@@ -149,13 +149,13 @@ export default class Profile extends Component {
                                 contentColor='gray'
                             />
                         </div>
-                        <div className='ProfilePicture'>
+                        {/* <div className='ProfilePicture'>
                             <img src = {pic}/>
                             <br/>
                             <p>
                                 Change photo
                             </p>
-                        </div>
+                        </div> */}
                     </div>}
                     {this.state.page == 1 && <ProfileSetting
                         username={this.state.username}
