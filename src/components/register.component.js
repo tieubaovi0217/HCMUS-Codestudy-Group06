@@ -27,12 +27,12 @@ export default class Register extends Component {
   validateEmail = (email) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
-  }
+  };
 
   validateUsername = (username) => {
     const re = /^[a-zA-Z0-9]+$/;
     return re.test(username);
-  }
+  };
 
   onSubmitSignUp = () => {
     let { registerUsername, registerPassword, registerEmail } = this.state;
@@ -47,20 +47,21 @@ export default class Register extends Component {
       alert("Password cannot be empty!");
       return;
     }
-    
 
-    if(!this.validateEmail(registerEmail)) {
-      alert('Invalid form email adress!');
+    if (!this.validateEmail(registerEmail)) {
+      alert("Invalid form email adress!");
       return;
     }
 
-    if(!this.validateUsername(registerUsername)) {
-      alert('Invalid username! Your username should contain only a-z, A-Z, 0-9 characters!');
+    if (!this.validateUsername(registerUsername)) {
+      alert(
+        "Invalid username! Your username should contain only a-z, A-Z, 0-9 characters!"
+      );
       return;
     }
 
-    if(registerPassword.length < 5) {
-      alert('Your password should contain at least 5 characters!');
+    if (registerPassword.length < 5) {
+      alert("Your password should contain at least 5 characters!");
       return;
     }
 
@@ -72,8 +73,6 @@ export default class Register extends Component {
         email: registerEmail,
       })
       .then(function (response) {
-        //this.props.handleSuccessfulAuth(response.data);
-
         console.log(response);
         alert("Congratulations, your account has been successfully created!");
         now.props.history.push("/login");

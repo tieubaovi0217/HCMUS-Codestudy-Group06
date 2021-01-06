@@ -3,22 +3,11 @@ import axios from "axios";
 import {
   Box,
   Button,
-  CircularProgress,
-  Container,
   Divider,
-  FormControl,
   makeStyles,
-  MenuItem,
-  Select,
-  TextField,
   Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
 } from "@material-ui/core";
-import { Link, Redirect } from "react-router-dom";
-import Editor from "./viewproblem.editor.component.js";
+import { Redirect } from "react-router-dom";
 
 export default class ViewProblem extends Component {
   classes = makeStyles((theme) => ({
@@ -39,19 +28,15 @@ export default class ViewProblem extends Component {
         title: "",
         timeLimit: "",
         memLimit: "",
-        description:
-          "",
-        inputFormat:
-          "",
-        outputFormat:
-          "",
+        description: "",
+        inputFormat: "",
+        outputFormat: "",
         inputSample: "",
         outputSample: "",
       },
       data: [],
       dataWithTable: [],
       languages: ["cpp", "java", "python", "pascal"],
-      test: "test",
       redirect: "",
     };
   }
@@ -59,12 +44,17 @@ export default class ViewProblem extends Component {
   componentDidMount = () => {
     let data = null;
     let { id } = this.state; //id = this.state.id
+    let now = this;
     axios
       .get(`http://localhost:5000/problemset/viewproblem/${id}`)
       .then((response) => {
-        this.setState({ test: "hehe" });
-
         data = response.data[0];
+
+        if (!data) {
+          alert("Oops, We don't have a problem with ID:" + id);
+          now.props.history.push("/problemset");
+          return;
+        }
 
         let {
           description,
@@ -80,7 +70,7 @@ export default class ViewProblem extends Component {
           time_created,
           time_limit,
         } = data;
-        console.log(description);
+
         let newSampleProblem = {
           description: description,
           inputFormat: input_format,
@@ -175,7 +165,12 @@ export default class ViewProblem extends Component {
         ))}
 
         <Divider className={this.classes.divider} />
-        <Button class = "btn btn-primary btn-sm btn-block" color="primary" type="submit" onClick={this.onClickSubmit}>
+        <Button
+          class="btn btn-primary btn-sm btn-block"
+          color="primary"
+          type="submit"
+          onClick={this.onClickSubmit}
+        >
           Submit
         </Button>
       </Box>

@@ -1,58 +1,58 @@
 .ProfileSetting {
-    border-style: solid;
-    border-width: 2px;
-    border-color: lightgray;
-    border-radius: 25px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgray;
+  border-radius: 25px;
 }
 
 .ProfileSetting .InputInfor {
-    display: flex;
-    margin: 20px 0 0 10px;
+  display: flex;
+  margin: 20px 0 0 10px;
 }
 
 .ProfileSetting .InputInfor p {
-    width: 150px;
-    text-align: right;
-    margin-top: auto;
-    margin-bottom: auto;
+  width: 150px;
+  text-align: right;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .ProfileSetting .InputInfor input {
-    margin-left: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
-    height: 27px;
-    width: 250px;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 27px;
+  width: 250px;
 }
 
-.ProfileSetting .Msg p{
-    margin-top: 0px;
-    margin-left: 180px;
-    margin-bottom: -19px;
-    width: fit-content;
-    font-size: 12px;
-    color: gray;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.ProfileSetting .Msg p {
+  margin-top: 0px;
+  margin-left: 180px;
+  margin-bottom: -19px;
+  width: fit-content;
+  font-size: 12px;
+  color: gray;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .ProfileSetting button {
-    margin-bottom: 20px;
-    margin-left: 200px;
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(224, 219, 219);
-    outline: none;
+  margin-bottom: 20px;
+  margin-left: 200px;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(224, 219, 219);
+  outline: none;
 }
 
 .ProfileSetting .Hahaha {
-    display: flex;
-    height: 38px;
-    margin-bottom: 20px;
+  display: flex;
+  height: 38px;
+  margin-bottom: 20px;
 }
 
 .ProfileSetting .Hahaha .ErrorHandle {
-    margin-left: 10px;
-    margin-top: auto;
-    margin-bottom: auto;
-    color: rgb(219, 62, 62);
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: rgb(219, 62, 62);
 }

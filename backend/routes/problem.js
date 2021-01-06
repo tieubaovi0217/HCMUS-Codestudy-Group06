@@ -9,9 +9,9 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/viewproblem/:id").get((req, res) => {
-  Problem.find({"problem_id": req.params.id})
-  .then((problem) => res.json(problem))
-  .catch((err) => res.status(400).json("Error: " + err));
+  Problem.find({ problem_id: req.params.id })
+    .then((problem) => res.json(problem))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/add").post((req, res) => {

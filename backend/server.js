@@ -46,14 +46,12 @@ app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 const usersRouter = require("./routes/users");
 const MainPage = require("./routes/mainpage");
 
 const submissionRouter = require("./routes/submission");
 const problemRouter = require("./routes/problem");
 
-//app.use('/', MainPage);
 app.use("/users", usersRouter);
 app.use("/viewsubmission", submissionRouter);
 app.use("/problemset", problemRouter);

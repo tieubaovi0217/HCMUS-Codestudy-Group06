@@ -1,28 +1,26 @@
 import React, { Component, memo } from "react";
 import axios from "axios";
 
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import { ControlledEditor } from "@monaco-editor/react";
-
 
 export default class ViewSubmission extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       submissions: [],
-      usernamefake : localStorage.getItem("username"),
-      isLoggedIn : localStorage.getItem("isLoggedIn")
-     };
+      usernamefake: localStorage.getItem("username"),
+      isLoggedIn: localStorage.getItem("isLoggedIn"),
+    };
   }
 
   // get data from server
   componentDidMount() {
-     console.log("did mount");
-     this.state.usernamefake = localStorage.getItem("username");
-     this.state.isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (this.state.isLoggedIn)
-    {
+    console.log("did mount");
+    this.state.usernamefake = localStorage.getItem("username");
+    this.state.isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (this.state.isLoggedIn) {
       this.getData();
       this.timer = setInterval(() => this.getData(), 4000);
     }
@@ -41,13 +39,11 @@ export default class ViewSubmission extends Component {
       });
   }
 
-  
   componentWillUnmount() {
     console.log("unmount");
     clearInterval(this.timer);
     this.timer = null;
   }
-
 
   renderTableHeader() {
     return (
@@ -83,32 +79,41 @@ export default class ViewSubmission extends Component {
       return (
         <tr key={submission.submission_id}>
           <th scope="row">
-                <Popup trigger={<a class="nav-link">{submission.submission_id}</a>} modal>
-                <div>
-                <div className="header"> {"Submission #" +  submission.submission_id} </div>   
+            <Popup
+              trigger={<a class="nav-link">{submission.submission_id}</a>}
+              modal
+            >
+              <div>
+                <div className="header">
+                  {" "}
+                  {"Submission #" + submission.submission_id}{" "}
+                </div>
                 <br></br>
                 <ControlledEditor
-                value = {submission.code}
-                language = {submission.language}
-                height = {"50vh"}
-                options={{
+                  value={submission.code}
+                  language={submission.language}
+                  height={"50vh"}
+                  options={{
                     readOnly: true,
                     scrollBeyondLastColumn: 0,
                     scrollBeyondLastLine: false,
                     minimap: {
-                      enabled: false
+                      enabled: false,
                     },
                     scrollbar: {
-                      alwaysConsumeMouseWheel: false
-                    }
+                      alwaysConsumeMouseWheel: false,
+                    },
                   }}
                 />
               </div>
-              </Popup>  
+            </Popup>
           </th>
           <td>{submission.time_submitted}</td>
           <td>
-            <a class="nav-link" href={"/problemset/viewproblem/" + submission.problem_id}>
+            <a
+              class="nav-link"
+              href={"/problemset/viewproblem/" + submission.problem_id}
+            >
               {submission.problem_id}
             </a>
           </td>
@@ -124,10 +129,9 @@ export default class ViewSubmission extends Component {
   render() {
     console.log(this.state.submissions[1]);
     console.log(this.state.usernamefake);
-    console.log(this.state.isLoggedIn);    
-    let {isLoggedIn} = this.state;
-    if (isLoggedIn)
-    {
+    console.log(this.state.isLoggedIn);
+    let { isLoggedIn } = this.state;
+    if (isLoggedIn) {
       return (
         <div>
           <table class="table">
@@ -135,14 +139,9 @@ export default class ViewSubmission extends Component {
             <tbody>{this.renderTableData()}</tbody>
           </table>
         </div>
-        );
-    }
-    else
-    {
-      return(
-        <p> Please log in to View your Submission</p>
-       );
+      );
+    } else {
+      return <p> Please log in to View your Submission</p>;
     }
   }
-
 }
