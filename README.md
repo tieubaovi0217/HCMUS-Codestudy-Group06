@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### TO-DO LIST FRONT-END
+### TO-DO LIST
 Mỗi người vô folder src/component. sau đó tìm file tương ứng với phần mình làm rồi sửa trong đó nha
 - [x] Bảo: profile + login + logout
 - [x] Cường : View Problem 
@@ -32,5 +32,3 @@ Mỗi người vô folder src/component. sau đó tìm file tương ứng với 
 - [x] Phúc: View Submission
 - [x] Khiêm: Submission
 
-DEADLINE: 21/12/2020.
-9h00. - Commit lên trươc 9h00
