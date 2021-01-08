@@ -26,11 +26,15 @@ router.route("/login").post((req, res) => {
 
 router.route("/register").post((req, res) => {
   //console.log("here");
-  User.findOne({ username: req.body.username }, async (err, doc) => {
+  User.findOne({$or: [
+        {email: req.body.email},
+        {username: req.body.username}
+    ]}, async (err, doc) => {
     try {
       if (err) throw err;
       if (doc) res.status(409).send("User Already Exists");
       if (!doc) {
+        
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const newUser = new User({

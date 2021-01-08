@@ -78,7 +78,7 @@ export default class Register extends Component {
         now.props.history.push("/login");
       })
       .catch(function (error) {
-        alert("Username already exists. Please try with another one");
+        alert("Username or Email already exists. Please try with another one");
         console.log(error);
       });
   };
