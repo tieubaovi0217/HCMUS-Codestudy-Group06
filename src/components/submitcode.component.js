@@ -29,12 +29,12 @@ export default class SubmitCode extends Component {
 
     // some constant number for judge0 api
     this.API_KEY = [
-      "cdce9a4057msh927651e0ff3672ep12b97ejsn61d13f5ff00a",
-      "fd5e06d943mshaab1ec1bc5a2669p14950fjsn58d3a4b3d295",
-      "8a10748596msh2b9912ada0e6e7ap122fc7jsnf743fc57c95e",
-      "9ec22d26eemsh667d4486f803c30p1b74cajsnfb7366256027",
-      "01339e241dmsh3b766703701e14ep1732e0jsnbe8ff4dbd87b",
-      "f678df5c66msh95ffdba00b36b9ep1e40bbjsn2e80aab66142",
+      "b25ed1e6ccmshcd25ce4b4624d56p1fe5b8jsn19d0a49a0a1f",
+      "ab4db15378msh8a1e797c6465d8ap1b40c8jsn1d440b413bab",
+      "212321ae28mshdad18c4c1bbcbb8p11287bjsne3ed8326f1cf",
+      "14d71a353fmshe3af760dd39c6aap16804bjsn016102773242",
+      "1872e6bfcamsh0e2c59fb27fed8cp1b68b7jsn6943b77b28df",
+      "20b34c898amsh8c493418f014ba7p100a2ejsn1496d259ba0b",
     ];
     this.NUMBER_OF_API_KEY = this.API_KEY.length;
     this.HOST0 = ["judge0-extra-ce.p.rapidapi.com", "judge0-ce.p.rapidapi.com"];
