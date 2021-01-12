@@ -17,5 +17,9 @@ Runs the app in the development mode.\
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ##  Change directory to the backend directory:
-### nodemon server
+### 'nodemon server'
+
+
+## Watch the following tutorials for instruction to install requirements.
+https://www.youtube.com/watch?v=7CqJlxBYj-M
 
